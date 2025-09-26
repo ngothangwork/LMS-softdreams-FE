@@ -1,0 +1,19 @@
+<div class="manager-container">
+  <aside class="sidebar">
+    <h2 class="sidebar-title">Manager</h2>
+    <nav>
+      <ul>
+        <li routerLink="/manager/books" routerLinkActive="active">Book Manager</li>
+        <li routerLink="/manager/authors" routerLinkActive="active">Author Manager</li>
+        <li routerLink="/manager/categories" routerLinkActive="active">Category Manager</li>
+        <li routerLink="/manager/publishers" routerLinkActive="active">Publisher Manager</li>
+        <li routerLink="/manager/borrows" routerLinkActive="active">Borrow Manager</li>
+        <li routerLink="/manager/users" routerLinkActive="active">User Manager</li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

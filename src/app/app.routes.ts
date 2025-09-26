@@ -1,3 +1,60 @@
 import { Routes } from '@angular/router';
+import { LoginComponent } from './features/auth/pages/login-page/components/login-page';
+import { HomeComponent } from './features/home/pages/home-pages/home';
 
-export const routes: Routes = [];
+import { BookListComponent } from './features/book/pages/book-list-pages/book-list';
+import { BookCreateComponent } from './features/book/pages/book-create-pages/book-create';
+import { BookUpdateComponent } from './features/book/pages/book-update-pages/book-update';
+import { BookCustomerListComponent } from './features/book/pages/book-customer-list-page/book-customer-list';
+import { BookDetailComponent } from './features/book/pages/book-detail-pages/book-detail';
+
+import { AuthorCreateComponent } from './features/author/pages/author-create-pages/author-create';
+import { AuthorListComponent } from './features/author/pages/author-list-pages/author-list';
+import { AuthorUpdateComponent } from './features/author/pages/author-update-pages/author-update';
+
+import { CategoryCreateComponent } from './features/category/pages/category-create-page/category-create';
+import { CategoryListComponent } from './features/category/pages/category-list-pages/category-list';
+
+import { PublisherCreateComponent } from './features/publisher/pages/publisher-create-pages/publisher-create';
+import { PublisherUpdateComponent } from './features/publisher/pages/publisher-update-pages/publisher-update';
+import { PublisherListComponent } from './features/publisher/pages/publisher-list-page/publisher-list';
+import {MainManagerComponent} from './features/manager/layout/main-manager';
+import {AuthGuard} from './auth-guard';
+import {BookDetailManagerComponent} from './features/book/pages/book-detail-manager-pages/book-detail-manager';
+
+
+export const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: 'home', component: HomeComponent },
+
+  {
+    path: 'manager',
+    component: MainManagerComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'books', component: BookListComponent },
+      { path: 'books/create', component: BookCreateComponent },
+      { path: 'books/update/:id', component: BookUpdateComponent },
+      { path: 'books/detail/:id', component: BookDetailManagerComponent },
+
+      { path: 'authors', component: AuthorListComponent },
+      { path: 'authors/create', component: AuthorCreateComponent },
+      { path: 'authors/update/:id', component: AuthorUpdateComponent },
+
+      { path: 'categories', component: CategoryListComponent },
+      { path: 'categories/create', component: CategoryCreateComponent },
+
+      { path: 'publishers', component: PublisherListComponent },
+      { path: 'publishers/create', component: PublisherCreateComponent },
+      { path: 'publishers/update/:id', component: PublisherUpdateComponent },
+
+      { path: '', redirectTo: 'books', pathMatch: 'full' }
+    ]
+  },
+
+  { path: 'books/customer', component: BookCustomerListComponent },
+  { path: 'books/customer/:id', component: BookListComponent },
+  { path: 'books/customer/detail/:id', component: BookDetailComponent },
+
+  { path: '', redirectTo: 'home', pathMatch: 'full' }
+];

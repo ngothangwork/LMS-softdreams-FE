@@ -1,0 +1,109 @@
+.main-content {
+  padding: 20px;
+  background-image: url('/assets/images/background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #fff;
+}
+
+.home-background {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.home-title h1 {
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.search-bar select,
+.search-bar input {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  min-width: 150px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #333;
+  transition: box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.search-bar input {
+  flex: 1; /* input tự giãn hết chỗ trống */
+}
+
+.search-bar select:focus,
+.search-bar input:focus {
+  box-shadow: 0 0 0 2px #4c89af;
+  transform: translateY(-1px);
+}
+
+.search-bar button {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(135deg, #58c8b7, #155c81);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-bar button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.search-bar button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+
+.results {
+  text-align: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.results ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 15px;
+  list-style: none;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}

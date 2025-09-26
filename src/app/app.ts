@@ -1,12 +1,14 @@
-import { Component, signal } from '@angular/core';
+import { Component} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import {HeaderComponent} from './shared/header/header';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, HeaderComponent, MatDialogModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('lms-softdreams-fe');
 }

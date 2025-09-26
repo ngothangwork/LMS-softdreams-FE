@@ -1,1 +1,85 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.toast-container {
+  position: fixed !important;
+  top: 65px !important;
+  right: 20px !important;
+  left: auto !important;
+  bottom: auto !important;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.ngx-toastr {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 200px;
+  min-height: 20px;
+  padding: 8px 8px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  border: 1px solid #cccccc;
+  font-family: 'Inter', 'Roboto', 'Segoe UI', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  pointer-events: auto;
+  opacity: 0;
+  transform: translateX(100%);
+  animation: slideIn 0.4s ease forwards, fadeOut 0.4s ease forwards 2.6s;
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+.toast-success {
+  background: linear-gradient(135deg, #28a745, #0eaa2d);
+  color: #fff;
+}
+
+.toast-error {
+  background: linear-gradient(135deg, #dc3545, #c82333);
+  color: #fff;
+}
+
+.toast-info {
+  background: linear-gradient(135deg, #17a2b8, #117a8b);
+  color: #fff;
+}
+
+.toast-warning {
+  background: linear-gradient(135deg, #ffc107, #e0a800);
+  color: #212529;
+}
+
+.toast-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+  width: 100%;
+}
+
+.toast-message {
+  font-size: 14px;
+  width: 100%;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

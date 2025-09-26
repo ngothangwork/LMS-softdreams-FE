@@ -1,0 +1,88 @@
+<div class="book-list">
+  <div class="header">
+    <h2>Quản lý sách</h2>
+    <button (click)="openCreateDialog()" class="btn btn-primary">+ Thêm sách</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">Đang tải...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div class="search-bar">
+    <select [(ngModel)]="type" title="Tìm theo">
+      <option value="name">Tên</option>
+      <option value="author">Tác giả</option>
+      <option value="category">Thể loại</option>
+      <option value="publisher">Nhà xuất bản</option>
+    </select>
+    <input
+      type="text"
+      placeholder="Nhập từ khóa..."
+      [(ngModel)]="searchKeyword"
+      (keydown.enter)="onSearchClick()"
+    />
+    <button (click)="onSearchClick()">Tìm kiếm</button>
+
+  </div>
+
+  <div class="sort-bar">
+    <label class="inline-label">Sắp xếp</label>
+    <select [(ngModel)]="sortField" (change)="onSortChange()">
+      <option value="name">Tên</option>
+      <option value="author">Tác giả</option>
+      <option value="category">Thể loại</option>
+      <option value="publisher">Nhà xuất bản</option>
+      <option value="publishedDate">Ngày xuất bản</option>
+    </select>
+
+    <select [(ngModel)]="sortDir" (change)="onSortChange()">
+      <option value="asc">Tăng dần</option>
+      <option value="desc">Giảm dần</option>
+    </select>
+
+    <label class="inline-label">Số / trang</label>
+    <select [(ngModel)]="size" (change)="onSizeChange()">
+      <option *ngFor="let s of pageSizeOptions" [value]="s">{{ s }}</option>
+    </select>
+  </div>
+
+  <table *ngIf="!loading && books.length > 0" class="book-table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Ảnh bìa</th>
+      <th>Tên</th>
+      <th>ISBN</th>
+      <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let book of books">
+      <td>{{ book.id }}</td>
+      <td>
+        <img *ngIf="book.avatar" [src]="book.avatar" alt="avatar" class="avatar" />
+      </td>
+      <td (click)="goToDetail(book.id)" class="row-link">{{ book.name }}</td>
+      <td>{{ book.isbn }}</td>
+      <td class="actions">
+        <button (click)="openUpdateDialog(book.id)" class="btn btn-warning">Sửa</button>
+        <button (click)="deleteBook(book.id)" class="btn btn-danger">Xóa</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && books.length === 0" class="no-data">
+    Không tìm thấy sách nàooo.
+  </div>
+
+  <div class="pagination" *ngIf="!loading && (totalPages > 0 || books.length > 0)">
+    <button (click)="goToFirst()" [disabled]="page === 0">Đầu</button>
+    <button (click)="goToPage(page - 1)" [disabled]="page === 0">Trước</button>
+
+    <span>Trang {{ page + 1 }} / {{ totalPages || 1 }}</span>
+    <span class="muted">({{ totalElements }} kết quả)</span>
+
+    <button (click)="goToPage(page + 1)" [disabled]="totalPages ? (page >= totalPages - 1) : (books.length < size)">Sau</button>
+    <button (click)="goToLast()" [disabled]="totalPages ? (page >= totalPages - 1) : true">Cuối</button>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<div class="author-page">
+  <h2>Quản lý tác giả</h2>
+
+  <div class="search-bar">
+    <input
+      type="text"
+      [(ngModel)]="searchName"
+      placeholder="Tìm kiếm bằng tên..."
+      (keyup)="onSearch()"
+    />
+    <button (click)="onSearch()">Tìm kiếm</button>
+    <button class="create-btn" (click)="openCreateDialog()">+ Thêm tác giả</button>
+  </div>
+
+  <div class="sort-bar">
+    <label class="inline-label">Sắp xếp</label>
+    <select [(ngModel)]="sortDir" (change)="onSortChange()">
+      <option value="asc">Tăng dần</option>
+      <option value="desc">Giảm dần</option>
+    </select>
+
+    <label class="inline-label">Số / trang</label>
+    <select [(ngModel)]="size" (change)="onSizeChange()">
+      <option *ngFor="let s of pageSizeOptions" [value]="s">{{ s }}</option>
+    </select>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    Đang tải tác giả...
+  </div>
+
+  <div *ngIf="!loading && authors.length === 0" class="no-data">
+    Không tìm thấy ai!!!
+  </div>
+
+  <div *ngIf="!loading && authors.length > 0" class="authors">
+    <div *ngFor="let author of authors" class="author-item">
+      <div>
+        <h3>{{ author.name }}</h3>
+        <p>Ngày sinh: {{ author.dob}}</p>
+        <p>Quốc tịch: {{ author.nationality }}</p>
+        <p>Mô tả: {{ author.description }}</p>
+
+      </div>
+
+      <div class="actions">
+        <button (click)="openUpdateDialog(author.id)">Cập nhật</button>
+        <button (click)="onDelete(author.id)">Xóa</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagination" *ngIf="!loading && (totalPages > 0 || authors.length > 0)">
+    <button (click)="goToFirst()" [disabled]="page === 0">Đầu</button>
+    <button (click)="goToPage(page - 1)" [disabled]="page === 0">Trước</button>
+
+    <span>Trang {{ page + 1 }} / {{ totalPages || 1 }}</span>
+    <span class="muted">({{ totalElements }} kết quả)</span>
+
+    <button (click)="goToPage(page + 1)" [disabled]="totalPages ? (page >= totalPages - 1) : (authors.length < size)">Sau</button>
+    <button (click)="goToLast()" [disabled]="totalPages ? (page >= totalPages - 1) : true">Cuối</button>
+  </div>
+
+</div>

@@ -1,0 +1,29 @@
+<header>
+  <div class="header-logo">
+    <img ngSrc="assets/images/logo.png" width="120" height="40" alt="logo">
+    <div class="header-logo-text">
+      <h1>GauGauGau</h1>
+    </div>
+  </div>
+
+  <div class="header-menu">
+    <a routerLink="/home" routerLinkActive="active" class="header-menu-item">Trang Chủ</a>
+    <a routerLink="/about" routerLinkActive="active" class="header-menu-item">Giới Thiệu</a>
+    <a routerLink="/rules" routerLinkActive="active" class="header-menu-item">Nội Quy</a>
+    <a routerLink="/news" routerLinkActive="active" class="header-menu-item">Tin Tức</a>
+    <a routerLink="/books/customer" routerLinkActive="active" class="header-menu-item">Bộ Sưu Tập</a>
+  </div>
+
+  <div class="header-user">
+    <ng-container>
+
+    </ng-container>
+    @if (isLogin) {
+      <span>Xin chào, {{ user?.fullName }}</span>
+      <button (click)="logout()">Đăng xuất</button>
+    } @else {
+      <button routerLink="/login">Đăng nhập</button>
+    }
+  </div>
+
+</header>

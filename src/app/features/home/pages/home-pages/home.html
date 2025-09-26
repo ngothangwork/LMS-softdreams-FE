@@ -1,0 +1,18 @@
+<div class="main-content">
+  <div class="home-background">
+    <div class="home-title">
+      <h1><span>Xin chàoooo,</span> GauGauGau</h1>
+    </div>
+    <div class="search-bar">
+      <select [(ngModel)]="type">
+        <option value="name">Tên</option>
+        <option value="author">Tác giả</option>
+        <option value="category">Thể loại</option>
+        <option value="publisher">Nhà xuất bản</option>
+      </select>
+
+      <input [(ngModel)]="keyword" type="text" placeholder="Nhập từ khóa...">
+      <button (click)="searchBooks()">Tìm kiếm</button>
+    </div>
+  </div>
+</div>

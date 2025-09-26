@@ -1,0 +1,15 @@
+<a [routerLink]="['/books/customer/detail', book.id]" class="book-card-link">
+  <div class="book-card-horizontal">
+    <div class="book-image">
+      <img [src]="book.avatar" [alt]="book.name" />
+    </div>
+
+    <div class="book-content">
+      <h3 class="book-title">{{ book.name }}</h3>
+      <p class="book-isbn">ISBN: {{ book.isbn }}</p>
+
+      <div class="book-meta">
+      </div>
+    </div>
+  </div>
+</a>

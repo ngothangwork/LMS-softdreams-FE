@@ -1,0 +1,57 @@
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>Thêm Sách</h2>
+
+    <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Tên</label>
+        <input formControlName="name" type="text" />
+      </div>
+
+      <div class="form-group">
+        <label>Ảnh bìa</label>
+        <input type="file" (change)="onFileSelected($event)" />
+        <img *ngIf="bookForm.get('avatar')?.value"
+             [src]="bookForm.get('avatar')?.value"
+             alt="preview" class="preview"/>
+      </div>
+
+      <div class="form-group">
+        <label>ISBN</label>
+        <input formControlName="isbn" type="text" />
+      </div>
+
+      <div class="form-group">
+        <label>Nhà xuất bản</label>
+        <select formControlName="publisherId">
+          <option *ngFor="let p of publishers" [value]="p.id">{{ p.name }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Tác giả</label>
+        <ng-multiselect-dropdown
+          [data]="authors"
+          formControlName="authorIds"
+          [settings]="authorDropdownSettings"
+          placeholder="Chọn tác giả">
+        </ng-multiselect-dropdown>
+      </div>
+
+      <div class="form-group">
+        <label>Thể loại</label>
+        <ng-multiselect-dropdown
+          [data]="categories"
+          formControlName="categoryIds"
+          [settings]="categoryDropdownSettings"
+          placeholder="Chọn thể loại">
+        </ng-multiselect-dropdown>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn btn-primary" [disabled]="bookForm.invalid">Thêm</button>
+        <button type="button" class="btn btn-secondary" (click)="onClose()">Đóng</button>
+      </div>
+    </form>
+  </div>
+</div>

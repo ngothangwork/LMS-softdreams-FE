@@ -1,0 +1,50 @@
+<div class="modal-overlay">
+  <div class="modal-content">
+    <h2>
+      Cập nhật tác giả
+    </h2>
+    <form [formGroup]="authorForm" (ngSubmit)="onSubmit()" class="author-form">
+      <h2>Update Author</h2>
+
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" formControlName="name" type="text" />
+        <div class="error" *ngIf="authorForm.get('name')?.touched && authorForm.get('name')?.invalid">
+          <small *ngIf="authorForm.get('name')?.errors?.['required']">Name is required</small>
+          <small *ngIf="authorForm.get('name')?.errors?.['minlength']">Name must be at least 4 characters</small>
+        </div>
+      </div>
+
+      <div  class="form-group">
+        <label for="dob">Date of Birth</label>
+        <input id="dob" formControlName="dob" type="date" />
+        <div class="error" *ngIf="authorForm.get('dob')?.touched && authorForm.get('dob')?.invalid">
+          <small *ngIf="authorForm.get('dob')?.errors?.['required']">Date of birth is required</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="nationality">Nationality</label>
+        <input id="nationality" formControlName="nationality" type="text" />
+        <div class="error" *ngIf="authorForm.get('nationality')?.touched && authorForm.get('nationality')?.invalid">
+          <small *ngIf="authorForm.get('nationality')?.errors?.['required']">Nationality is required</small>
+          <small *ngIf="authorForm.get('nationality')?.errors?.['maxlength']">Max 50 characters allowed</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description"></textarea>
+        <div class="error" *ngIf="authorForm.get('description')?.touched && authorForm.get('description')?.invalid">
+          <small *ngIf="authorForm.get('description')?.errors?.['maxlength']">Max 500 characters allowed</small>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn btn-primary" [disabled]="authorForm.invalid">Update</button>
+        <button type="button" class="btn btn-secondary" (click)="onClose()">Close</button>
+      </div>
+
+    </form>
+  </div>
+</div>

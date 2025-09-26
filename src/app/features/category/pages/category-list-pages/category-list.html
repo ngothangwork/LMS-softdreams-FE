@@ -1,0 +1,36 @@
+<div class="category-page">
+  <h2>Quản lý thể loại</h2>
+
+  <div class="search-bar">
+    <input
+      type="text"
+      [(ngModel)]="searchName"
+      placeholder="Tìm kiếm bằng tên..."
+      (keyup)="onSearch()"
+    />
+    <button (click)="onSearch()">Tìm kiếm</button>
+    <button class="create-btn" (click)="openCreateDialog()">+ Thêm thể loại</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    Đang tải thể loại...
+  </div>
+
+  <div *ngIf="!loading && categories.length === 0" class="no-data">
+    Không tìm thấy gì!!!
+  </div>
+
+  <div *ngIf="!loading && categories.length > 0" class="authors">
+    <div *ngFor="let category of categories" class="author-item">
+      <div>
+        <h3>{{ category.name }}</h3>
+      </div>
+
+      <div class="actions">
+        <button (click)="openUpdateDialog(category.id)">Cập nhật</button>
+        <button (click)="onDelete(category.id)">Xóa</button>
+      </div>
+    </div>
+  </div>
+
+</div>

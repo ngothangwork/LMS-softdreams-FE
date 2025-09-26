@@ -1,0 +1,85 @@
+header {
+  width: 100%;
+  height: 60px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 20px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-logo img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  display: block;
+}
+
+.header-logo-text h1 {
+  font-size: 20px;
+  font-family: lobster, serif;
+  font-weight: 600;
+  color: #16684b;
+}
+
+.header-menu {
+  display: flex;
+  gap: 20px;
+}
+
+.header-menu-item {
+  position: relative;
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+  padding: 8px 4px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.header-menu-item:hover {
+  color: #007bff;
+}
+
+.header-menu-item:hover::after {
+  width: 80%;
+}
+
+.header-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-user span {
+  font-size: 14px;
+  color: #555;
+}
+
+.header-user button {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #b7e6e2;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.header-user button:hover {
+  background-color: #0056b3;
+  cursor: pointer;
+}

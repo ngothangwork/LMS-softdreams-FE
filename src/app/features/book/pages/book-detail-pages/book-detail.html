@@ -1,0 +1,64 @@
+<div class="book-detail" *ngIf="bookDetail; else loadingTpl">
+  <div class="book-detail-left-content">
+    <div class="book-detail-content">
+      <div class="book-detail-value">
+        <img [src]="bookDetail.avatar" alt="{{bookDetail.name}}" width="450"/>
+      </div>
+    </div>
+  </div>
+  <div class="book-detail-right-content">
+    <div class="book-detail-content">
+      <div class="book-detail-label">Tên sách:</div>
+      <div class="book-detail-value">{{ bookDetail.name }}</div>
+    </div>
+
+    <div class="book-detail-content">
+      <div class="book-detail-label">Mã ISBN:</div>
+      <div class="book-detail-value">{{ bookDetail.isbn }}</div>
+    </div>
+
+    <div class="book-detail-content">
+      <div class="book-detail-label">Nhà xuất bản:</div>
+      <div class="book-detail-value">{{ bookDetail.publisher.name }}</div>
+    </div>
+
+    <div class="book-detail-content">
+      <div class="book-detail-label">Tác giả:</div>
+      <div class="book-detail-value">
+      <span *ngFor="let author of bookDetail.authors; let last = last">
+        {{ author.name }}{{ !last ? ', ' : '' }}
+      </span>
+      </div>
+    </div>
+
+    <div class="book-detail-content">
+      <div class="book-detail-label">Thể loại:</div>
+      <div class="book-detail-value">
+      <span *ngFor="let cat of bookDetail.categories; let last = last">
+        {{ cat.name }}{{ !last ? ', ' : '' }}
+      </span>
+      </div>
+    </div>
+
+    <div class="book-detail-content">
+      <div class="book-detail-label">Số sách đang mượn:</div>
+      <div class="book-detail-value">{{ bookDetail.numberOfBorrowed }}</div>
+    </div>
+
+    <div class="book-detail-content">
+      <div class="book-detail-label">Số sách còn:</div>
+      <div class="book-detail-value">{{ bookDetail.numberOfAvailable }}</div>
+    </div>
+
+    <div class="borrow">
+      <button class="borrow-btn">
+          Mượn sách
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<ng-template #loadingTpl>
+  <p>Loading book detail...</p>
+</ng-template>

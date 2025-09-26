@@ -1,0 +1,36 @@
+<div class="publisher-page">
+  <h2>Quản lý nhà xuất bản</h2>
+
+  <div class="search-bar">
+    <input
+      type="text"
+      [(ngModel)]="searchName"
+      placeholder="Tìm kiếm bằng tên..."
+      (keyup)="onSearch()"
+    />
+    <button (click)="onSearch()">Tìm kiếm</button>
+    <button class="create-btn" (click)="openCreateDialog()">+ Thêm nhà xuất bản</button>
+  </div>
+  <div *ngIf="loading" class="loading">
+    Đang tải danh sách nhà xuất bản...
+  </div>
+
+  <div *ngIf="!loading && publishers.length === 0" class="no-data">
+    Không tìm thấy nhà xuất bản nào!!!
+  </div>
+
+  <div *ngIf="!loading && publishers.length > 0" class="publishers">
+    <div *ngFor="let publisher of publishers" class="publisher-item">
+      <div>
+        <h3>{{ publisher.name }}</h3>
+        <p>Địa chỉ: {{ publisher.address }}</p>
+        <p>Số điện thoại: {{ publisher.phone }}</p>
+      </div>
+
+      <div class="actions">
+        <button (click)="openUpdateDialog(publisher.id)">Cập nhật</button>
+        <button (click)="onDelete(publisher.id)">Xóa</button>
+      </div>
+    </div>
+  </div>
+</div>
