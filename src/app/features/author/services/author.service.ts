@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {AuthorResponse} from '../models/author.model';
+import {AuthorResponse, AuthorUpdateResponse} from '../models/author.model';
 import {ApiResponse, Page} from '../../../core/models/api-response';
 import {AuthorCreate} from '../models/author-create.model';
 import {AuthorUpdate} from '../models/author-update.model';
@@ -38,6 +38,10 @@ export class AuthorService {
 
   getAuthor(id: number): Observable<ApiResponse<AuthorResponse>> {
     return this.http.get<ApiResponse<AuthorResponse>>(`${this.url}/${id}`);
+  }
+
+  getAuthorUpdates(): Observable<ApiResponse<AuthorUpdateResponse[]>> {
+    return this.http.get<ApiResponse<AuthorUpdateResponse[]>>(`${this.url}/options`);
   }
 
   createAuthor(author: AuthorCreate): Observable<ApiResponse<AuthorResponse>> {

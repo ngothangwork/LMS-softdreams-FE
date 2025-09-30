@@ -8,6 +8,7 @@ import { PublisherResponse } from '../../models/publisher.model';
 import { PublisherService } from '../../services/publisher.service';
 import { PublisherCreateComponent } from '../publisher-create-pages/publisher-create';
 import { PublisherUpdateComponent } from '../publisher-update-pages/publisher-update';
+import {ConfirmDialogComponent} from '../../../../shared/ui/confirm-dialog.component';
 
 @Component({
   selector: 'app-publisher-list',
@@ -25,7 +26,7 @@ export class PublisherListComponent implements OnInit {
   constructor(
     private publisherService: PublisherService,
     private dialog: MatDialog,
-    private toastr: ToastrService,
+    private toast: ToastrService,
   ) {}
 
   ngOnInit() {
@@ -41,7 +42,7 @@ export class PublisherListComponent implements OnInit {
         this.publishers = res.result;
         this.loading = false;
         if (this.searchName) {
-          this.toastr.success(
+          this.toast.success(
             `Tìm thấy ${this.publishers.length} nhà xuất bản`,
             'Thành công'
           );
@@ -50,7 +51,7 @@ export class PublisherListComponent implements OnInit {
       error: (err) => {
         console.error('Error fetching publishers:', err);
         this.error = 'Không thể tải danh sách publishers';
-        this.toastr.error(this.error, 'Lỗi');
+        this.toast.error(this.error, 'Lỗi');
         this.loading = false;
       }
     });
@@ -88,16 +89,24 @@ export class PublisherListComponent implements OnInit {
   }
 
   onDelete(id: number) {
-    if (confirm('Bạn có chắc muốn xóa nhà xuất bản này không?')) {
-      this.publisherService.deletePublisher(id).subscribe({
-        next: () => {
-          this.toastr.success('Xóa nhà xuất bản thành công');
-          this.loadPublishers();
-        },
-        error: () => {
-          this.toastr.error('Xóa thất bại vì có sách thuộc nhà xuất bản này!!!');
-        }
-      });
-    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      disableClose: true,
+      data: { message: 'Bạn có chắc chắn muốn xóa nhà xuất bản này?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.publisherService.deletePublisher(id).subscribe({
+          next: () => {
+            this.toast.success('Xóa nhà xuất bản thành công');
+            this.loadPublishers()
+          },
+          error: () => {
+            this.toast.error('Xóa nhà xuất bản thất bại vì có sách đang dùng nhà xuất bản này');
+          }
+        });
+      }
+    });
   }
 }

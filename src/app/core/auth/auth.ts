@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Observable, tap, throwError} from 'rxjs';
+import {BehaviorSubject, Observable, tap, throwError} from 'rxjs';
 import { ApiResponse } from '../models/api-response';
 import { UserLoginResponse } from '../../features/auth/pages/login-page/models/user-login-response';
 import {Router} from '@angular/router';
@@ -12,6 +12,8 @@ export class AuthService {
   private API_URL = 'http://localhost:8080/auth';
   private readonly tokenKey = 'access_token';
   private readonly userKey = 'user';
+  private userSubject = new BehaviorSubject<any>(this.getUser());
+  user$ = this.userSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -23,6 +25,7 @@ export class AuthService {
             localStorage.setItem(this.tokenKey, res.result.token);
             localStorage.setItem('refresh_token', res.result.refreshToken);
             localStorage.setItem(this.userKey, JSON.stringify(res.result));
+            this.userSubject.next(res.result);
           }
         })
       );
@@ -62,11 +65,23 @@ export class AuthService {
     );
   }
 
+  getRole(): string | null {
+    return this.getUser()?.userRole?.toUpperCase() || null;
+  }
+
+
+  hasRole(role: string): boolean {
+    return this.getRole() === role;
+  }
+
+  hasAnyRole(roles: string[]): boolean {
+    return roles.includes(this.getRole()!);
+  }
+
+
 
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
-
-
 
 }

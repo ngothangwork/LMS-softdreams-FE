@@ -1,0 +1,101 @@
+.main-content {
+  padding: 20px;
+}
+
+::ng-deep .mat-mdc-dialog-container .main-content {
+  margin: 20px;
+}
+
+::ng-deep .mat-mdc-dialog-container {
+  border-radius: 16px !important;
+  padding: 0 !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  background: #fff;
+}
+
+h2[mat-dialog-title] {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  padding: 20px 24px;
+  border-bottom: 1px solid #f0f0f0;
+  text-align: center;
+  color: #222;
+  background: linear-gradient(90deg, #f8f9fa, #ffffff);
+}
+
+mat-dialog-content {
+  padding: 24px 32px;
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: center;
+  color: #444;
+  background-color: #fff;
+}
+
+mat-dialog-actions {
+  padding: 16px 24px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  border-top: 1px solid #f0f0f0;
+  background: #fafafa;
+}
+
+button[mat-button] {
+  min-width: 90px;
+  border-radius: 8px;
+  font-weight: 500;
+  color: #2c2c2c;
+  transition: all 0.25s ease;
+}
+
+button[mat-button]:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+
+button[mat-raised-button] {
+  border-radius: 8px;
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0);
+}
+
+button[mat-raised-button]:hover {
+  box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+}
+
+.btn-no {
+  min-width: 90px;
+  border-radius: 8px;
+  font-weight: 500;
+  color: #555;
+  background-color: #f5f5f5;
+  transition: all 0.25s ease;
+}
+
+.btn-no:hover {
+  background-color: #e0e0e0;
+}
+
+.btn-yes {
+  min-width: 90px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  background-color: #d32f2f;
+  color: #fff;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  transition: all 0.25s ease;
+}
+
+.btn-yes:hover {
+  background-color: #b71c1c;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+}
+

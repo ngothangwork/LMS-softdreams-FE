@@ -8,16 +8,25 @@
 
   <div class="header-menu">
     <a routerLink="/home" routerLinkActive="active" class="header-menu-item">Trang Chủ</a>
-    <a routerLink="/about" routerLinkActive="active" class="header-menu-item">Giới Thiệu</a>
-    <a routerLink="/rules" routerLinkActive="active" class="header-menu-item">Nội Quy</a>
-    <a routerLink="/news" routerLinkActive="active" class="header-menu-item">Tin Tức</a>
-    <a routerLink="/books/customer" routerLinkActive="active" class="header-menu-item">Bộ Sưu Tập</a>
+    <a routerLink="/books/customer" routerLinkActive="active" class="header-menu-item">Toàn Bộ Sách</a>
+
+    @if (!(isAdmin || isLibrarian)) {
+      <a routerLink="/abouts" routerLinkActive="active" class="header-menu-item">Thông Tin</a>
+      <a routerLink="/rules" routerLinkActive="active" class="header-menu-item">Nội Quy</a>
+    }
+
+    @if (isLogin && (isAdmin || isLibrarian)) {
+      <a routerLink="/manager/books" routerLinkActive="active" class="header-menu-item">Quản Lý Sách</a>
+      <a routerLink="/manager/borrows" routerLinkActive="active" class="header-menu-item">Quản Lý Mượn Trả</a>
+    }
+    @if (isLogin && isAdmin) {
+      <a routerLink="/manager/authors" routerLinkActive="active" class="header-menu-item">Tác Giả</a>
+      <a routerLink="/manager/categories" routerLinkActive="active" class="header-menu-item">Thể Loại</a>
+      <a routerLink="/manager/publishers" routerLinkActive="active" class="header-menu-item">Nhà Xuất Bản</a>
+    }
   </div>
 
   <div class="header-user">
-    <ng-container>
-
-    </ng-container>
     @if (isLogin) {
       <span>Xin chào, {{ user?.fullName }}</span>
       <button (click)="logout()">Đăng xuất</button>
@@ -25,5 +34,4 @@
       <button routerLink="/login">Đăng nhập</button>
     }
   </div>
-
 </header>

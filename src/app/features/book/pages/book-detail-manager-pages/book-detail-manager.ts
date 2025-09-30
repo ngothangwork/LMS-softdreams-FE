@@ -4,9 +4,10 @@ import {BookService} from '../../services/book.services';
 import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {NgForOf, NgIf} from '@angular/common';
-import {BookCreateComponent} from '../book-create-pages/book-create';
 import {BookUpdateComponent} from '../book-update-pages/book-update';
 import {MatDialog} from '@angular/material/dialog';
+import {BookCopyService} from '../../../bookcopies/services/bookcopy.service';
+import {BookCopyListResponse} from '../../../bookcopies/models/bookcopy.model';
 
 @Component({
   selector: 'app-book-detail-manager',
@@ -24,22 +25,38 @@ export class BookDetailManagerComponent implements OnInit{
   bookDetail: BookDetailResponse | null = null;
   loading = true;
   bookId!: number;
+  bookCopies: BookCopyListResponse[] = [];
+
   constructor(private bookService: BookService,
               private toast: ToastrService,
               private dialog: MatDialog,
               private route: ActivatedRoute,
               private router: Router,
+              private bookCopyService: BookCopyService,
 
   ) {
   }
 
   ngOnInit(){
     this.bookId = Number(this.route.snapshot.paramMap.get('id'));
+    this.loadBookCopies();
     this.loadBookDetail();
   }
 
   goBack() {
     this.router.navigate(['/manager/books']);
+  }
+
+  loadBookCopies() {
+    this.bookCopyService.getBookCopyByBookId(this.bookId).subscribe({
+      next: (data) => {
+        this.bookCopies = data.result;
+      },
+      error: (err) => {
+        console.error('Error fetching book copies:', err);
+        this.toast.error('Error fetching book copies', 'Error');
+      }
+    });
   }
 
   openUpdateDialog() {
@@ -54,19 +71,6 @@ export class BookDetailManagerComponent implements OnInit{
         this.loadBookDetail();
       }
     });
-  }
-
-  deleteBook() {
-    if (confirm('bạn có muốn xóa cái này không?')) {
-      this.bookService.deleteBook(this.bookId).subscribe({
-        next: () => {
-          this.router.navigate(['/manager/books']);
-          this.toast.success('Xóa sách thành công');
-        } ,
-        error: () => this.toast.error('Xóa sách thất bại')
-      });
-
-    }
   }
 
 

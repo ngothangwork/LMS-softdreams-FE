@@ -13,17 +13,25 @@ import {RouterLink, RouterLinkActive} from '@angular/router';
 export class HeaderComponent implements OnInit {
   user: any;
   isLogin = false;
+  isAdmin = false;
+  isLibrarian = false;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.user = this.authService.getUser();
-    this.isLogin = !!this.user;
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+      this.isLogin = !!user;
+      this.isAdmin = user?.userRole === 'ADMIN';
+      this.isLibrarian = user?.userRole === 'LIBRARIAN';
+    });
   }
 
   logout() {
     this.authService.logout();
     this.isLogin = false;
     this.user = null;
+    this.isAdmin = false;
+    this.isLibrarian = false;
   }
 }

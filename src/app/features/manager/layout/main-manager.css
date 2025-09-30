@@ -5,7 +5,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* Sidebar */
 .sidebar {
   width: 240px;
   background: #2c3e50;
@@ -42,10 +41,15 @@
   font-weight: bold;
 }
 
-/* Main Content */
 .main-content {
   flex: 1;
   padding: 24px;
   background: #fff;
   overflow-y: auto;
+}
+
+.form-group .error {
+  margin-top: 4px;
+  color: #d32f2f;
+  font-size: 12px;
 }

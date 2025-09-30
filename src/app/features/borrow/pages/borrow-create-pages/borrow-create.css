@@ -1,0 +1,94 @@
+.borrow-create-container {
+  padding: 30px;
+  background: linear-gradient(135deg, #ffffff, #f9f9f9);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.borrow-create-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #333;
+  text-align: center;
+}
+
+.borrow-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.borrow-form label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  color: #444;
+}
+
+.borrow-form input,
+.borrow-form select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 15px;
+  color: #333;
+  background-color: #fff;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.borrow-form input:focus,
+.borrow-form select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.borrow-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.btn-submit {
+  background: linear-gradient(90deg, #007bff, #0056b3);
+  color: #fff;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+  background: linear-gradient(90deg, #0056b3, #004099);
+  transform: translateY(-2px);
+  cursor: pointer;
+}
+
+.btn-cancel {
+  background: #f1f1f1;
+  color: #333;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.btn-cancel:hover {
+  background: #e0e0e0;
+  cursor: pointer;
+}
+
+.error {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #d93025;
+  font-weight: 500;
+  animation: fadeIn 0.2s ease-in;
+}

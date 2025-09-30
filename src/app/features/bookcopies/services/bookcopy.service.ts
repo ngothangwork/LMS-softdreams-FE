@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {BookCopyCreate, BookCopyResponse, BookCopyUpdate} from '../models/bookcopy.model';
+import {BookCopyCreate, BookCopyListResponse, BookCopyResponse, BookCopyUpdate} from '../models/bookcopy.model';
 import {ApiResponse} from '../../../core/models/api-response';
 
 @Injectable({
@@ -18,6 +18,10 @@ export class BookCopyService {
 
   getBookCopyById(id: number): Observable<ApiResponse<BookCopyResponse[]>> {
     return this.http.get<ApiResponse<BookCopyResponse[]>>(`${this.API_URL}/${id}`);
+  }
+
+  getBookCopyByBookId(id: number): Observable<ApiResponse<BookCopyListResponse[]>> {
+    return this.http.get<ApiResponse<BookCopyListResponse[]>>(`${this.API_URL}/book/${id}`);
   }
 
   createBookCopy(payload: BookCopyCreate): Observable<ApiResponse<BookCopyResponse[]>> {

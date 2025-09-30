@@ -125,4 +125,10 @@ textarea:focus {
   font-size: 12px;
 }
 
+.form-group .error {
+  margin-top: 4px;
+  color: #d32f2f;
+  font-size: 12px;
+}
+
 

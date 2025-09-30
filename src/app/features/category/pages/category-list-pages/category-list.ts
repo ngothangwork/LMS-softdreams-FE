@@ -8,6 +8,7 @@ import {ToastrService} from 'ngx-toastr';
 import {CategoryCreateComponent} from '../category-create-page/category-create';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {CategoryUpdateComponent} from '../category-update-page/category-update';
+import {ConfirmDialogComponent} from '../../../../shared/ui/confirm-dialog.component';
 
 @Component({
   selector: 'app-category-list',
@@ -71,27 +72,29 @@ export class CategoryListComponent implements OnInit{
     })
   }
 
-  onCreate() {
-    this.router.navigate(['/manager/categories/create']);
-  }
-
-  onUpdate(id: number) {
-    this.router.navigate(['/manager/categories/update', id]);
-  }
 
   onDelete(id: number) {
-    if (confirm('Are you sure you want to delete this category?')) {
-      this.categoryService.deleteCategory(id).subscribe({
-        next: () => {
-          this.toast.success('Xóa thể loại thành công');
-          this.loadCategories();
-        },
-        error: (err) => {
-          this.toast.error('Xóa thể loại thất bại vì có sách đang dùng thể loại này');
-        }
-      })
-    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      disableClose: true,
+      data: { message: 'Bạn có chắc chắn muốn xóa thể loại này?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.categoryService.deleteCategory(id).subscribe({
+          next: () => {
+            this.toast.success('Xóa thể loại thành công');
+            this.loadCategories();
+          },
+          error: () => {
+            this.toast.error('Xóa thể loại thất bại vì có sách đang dùng thể loại này');
+          }
+        });
+      }
+    });
   }
+
 
   openCreateDialog() {
     const dialogRef = this.dialog.open(CategoryCreateComponent, {

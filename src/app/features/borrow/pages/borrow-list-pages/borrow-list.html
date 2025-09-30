@@ -1,0 +1,48 @@
+<div class="borrow-list-container">
+  <h2>Danh sách mượn sách</h2>
+
+  <div *ngIf="loading">Đang tải dữ liệu...</div>
+
+  <div class="action-buttons">
+    <a href="http://localhost:8080/borrows/export?format=pdf" target="_blank">
+      <button>Export PDF</button>
+    </a>
+    <a href="http://localhost:8080/borrows/export?format=xlsx" target="_blank">
+      <button>Export Excel</button>
+    </a>
+  </div>
+
+
+  <table *ngIf="!loading && borrows.length > 0" class="borrow-table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Tên sách</th>
+      <th>User</th>
+      <th>Borrow Date</th>
+      <th>Return Date</th>
+      <th>Status</th>
+      <th>BookCopyId</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let b of borrows">
+      <td>{{ b.id }}</td>
+      <td>{{ b.bookName }}</td>
+      <td>{{ b.username }}</td>
+      <td>{{ b.borrowDate }}</td>
+      <td>{{ b.returnDate }}</td>
+      <td>{{ b.status }}</td>
+      <td>{{ b.bookCopyId || '-' }}</td>
+      <td>
+        <button (click)="goToEdit(b.id)">Chỉnh sửa</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && borrows.length === 0">
+    Không có borrow nào.
+  </div>
+</div>

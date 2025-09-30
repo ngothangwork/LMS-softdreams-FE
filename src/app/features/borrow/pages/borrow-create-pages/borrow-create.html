@@ -1,0 +1,22 @@
+<div class="borrow-create-container">
+  <h2 class="borrow-create-title">Đăng ký mượn sách</h2>
+
+  <form [formGroup]="borrowForm" (ngSubmit)="onSubmit()" class="borrow-form">
+    <div>
+      <label>Số ngày mượn</label>
+      <input type="number" formControlName="days" min="1" max="7" />
+      <div class="error" *ngIf="borrowForm.get('days')?.touched && borrowForm.get('days')?.errors">
+        <span *ngIf="borrowForm.get('days')?.errors?.['required']">Vui lòng nhập số ngày</span>
+        <span *ngIf="borrowForm.get('days')?.errors?.['pattern']">Chỉ được nhập số</span>
+        <span *ngIf="borrowForm.get('days')?.errors?.['min']">Số ngày phải lớn hơn 0</span>
+        <span *ngIf="borrowForm.get('days')?.errors?.['max']">Số ngày không được quá 7</span>
+      </div>
+    </div>
+
+
+    <div class="borrow-actions">
+      <button type="submit" class="btn-submit" [disabled]="borrowForm.invalid">Xác nhận</button>
+      <button type="button" class="btn-cancel" (click)="onClose()">Hủy</button>
+    </div>
+  </form>
+</div>

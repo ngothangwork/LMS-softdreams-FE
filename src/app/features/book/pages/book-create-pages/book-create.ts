@@ -40,7 +40,7 @@ export class BookCreateComponent implements OnInit {
     private categoryService: CategoryService,
     private publisherService: PublisherService,
     private fileService: FileService,
-    private toastr: ToastrService,
+    private toast: ToastrService,
     private dialogRef: MatDialogRef<BookCreateComponent>,
   ) {}
 
@@ -109,7 +109,7 @@ export class BookCreateComponent implements OnInit {
       };
 
       this.bookService.createBook(payload).subscribe(res => {
-        this.toastr.success('Thêm sách thành công');
+        this.toast.success('Thêm sách thành công');
         this.dialogRef.close(true);
       });
     }

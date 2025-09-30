@@ -54,56 +54,7 @@
   line-height: 1.6;
 }
 
-.book-detail-content:hover {
-  background-color: #f3f7ff;
-  border-radius: 8px;
-  transition: background-color 0.2s;
-  padding-left: 10px;
-}
 
-.borrow {
-  margin-top: 20px;
-}
-
-.borrow-btn {
-  background: linear-gradient(90deg, #007bff, #0056b3);
-  color: #fff;
-  padding: 14px 24px;
-  border: none;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
-}
-
-.borrow-btn:hover {
-  background: linear-gradient(90deg, #0056b3, #004099);
-  transform: translateY(-2px);
-  cursor: pointer;
-}
-
-@media (max-width: 900px) {
-  .book-detail {
-    flex-direction: column;
-    padding: 20px;
-  }
-
-  .book-detail-left-content {
-    justify-content: center;
-  }
-
-  .book-detail-content {
-    flex-direction: column;
-    align-items: flex-start;
-    border-bottom: none;
-    padding: 6px 0;
-  }
-
-  .book-detail-label {
-    margin-bottom: 4px;
-  }
-}
 
 .btn {
   padding: 8px 14px;
@@ -145,3 +96,32 @@
   display: flex;
   gap: 8px;
 }
+
+.book-copy-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+  font-size: 14px;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.book-copy-table th,
+.book-copy-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #232323;
+}
+
+.book-copy-table th {
+  background: #f5f7fb;
+  font-weight: 600;
+  color: #333;
+}
+
+.book-copy-table tr:hover {
+  background-color: #f3f7ff;
+  transition: background-color 0.2s ease;
+}
+

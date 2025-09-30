@@ -8,6 +8,7 @@ import {ToastrService} from 'ngx-toastr';
 import {MatDialog} from '@angular/material/dialog';
 import {AuthorCreateComponent} from '../author-create-pages/author-create';
 import {AuthorUpdateComponent} from '../author-update-pages/author-update';
+import {ConfirmDialogComponent} from '../../../../shared/ui/confirm-dialog.component';
 
 @Component({
   selector: 'app-author-list',
@@ -39,8 +40,9 @@ export class AuthorListComponent implements OnInit {
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
-    private toastr: ToastrService,
+    private toast: ToastrService,
   ) {}
+
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -135,17 +137,25 @@ export class AuthorListComponent implements OnInit {
 
 
   onDelete(id: number) {
-    if (confirm('Are you sure you want to delete this author?')) {
-      this.authorService.deleteAuthor(id).subscribe({
-        next: () => {
-          this.toastr.success('Xóa tác giả thành công!!!');
-          this.loadAuthors();
-        },
-        error: (err) => {
-          this.toastr.error('Xóa tác giả thất bại vì có sách của tác giả này!!!')
-        }
-      });
-    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      disableClose: true,
+      data: { message: 'Bạn có chắc chắn muốn xóa thể loại này?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.authorService.deleteAuthor(id).subscribe({
+          next: () => {
+            this.toast.success('Xóa thể loại thành công');
+            this.loadAuthors();
+          },
+          error: () => {
+            this.toast.error('Xóa thể loại thất bại vì có sách đang dùng thể loại này');
+          }
+        });
+      }
+    });
   }
 
   onSortChange() {

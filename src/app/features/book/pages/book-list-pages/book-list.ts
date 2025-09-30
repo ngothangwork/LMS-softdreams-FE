@@ -8,6 +8,7 @@
   import {ActivatedRoute, Router} from '@angular/router';
   import {FormsModule, ReactiveFormsModule} from '@angular/forms';
   import {ToastrService} from 'ngx-toastr';
+  import {ConfirmDialogComponent} from '../../../../shared/ui/confirm-dialog.component';
 
 
   @Component({
@@ -102,6 +103,8 @@
           sort: `${this.sortField},${this.sortDir}`
         },
         queryParamsHandling: 'merge'
+      }).then(() => {
+        this.searchBooks();
       })
     }
 
@@ -140,16 +143,24 @@
     }
 
     deleteBook(id: number) {
-      if (confirm('Are you sure you want to delete this book?')) {
-        this.bookService.deleteBook(id).subscribe({
-          next: () => {
-            this.loadBooks();
-            this.toastr.success('Xóa sách thành công');
-          } ,
-          error: () => this.toastr.error('Xóa sách thất bại')
-        });
-
-      }
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        width: '400px',
+        disableClose: true,
+        data: { message: 'Bạn có chắc chắn muốn xóa sách này?' }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.bookService.deleteBook(id).subscribe({
+            next: () => {
+              this.loadBooks();
+              this.toastr.success('Xóa sách thành công');
+            },
+            error: () => {
+              this.toastr.error('Xóa sách thất bại');
+            }
+          });
+        }
+      });
     }
 
     goToDetail(id: number) {

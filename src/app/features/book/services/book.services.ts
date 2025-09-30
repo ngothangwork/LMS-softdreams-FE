@@ -1,7 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {BookResponse, BookCreate, BookUpdate, BookSearch, BookDetailResponse} from '../models/book.model';
+import {
+  BookResponse,
+  BookCreate,
+  BookUpdate,
+  BookSearch,
+  BookDetailResponse,
+  BookUpdateResponse
+} from '../models/book.model';
 import {ApiResponse, Page} from '../../../core/models/api-response';
 
 
@@ -25,16 +32,12 @@ export class BookService {
     );
   }
 
-  getBooks(): Observable<ApiResponse<BookResponse[]>> {
-    return this.http.get<ApiResponse<BookResponse[]>>(this.API_URL);
-  }
-
   getBook(id: number): Observable<ApiResponse<BookDetailResponse>> {
     return this.http.get<ApiResponse<BookDetailResponse>>(`${this.API_URL}/${id}`);
   }
 
-  getBookUpdate(id: number): Observable<ApiResponse<BookResponse>> {
-    return this.http.get<ApiResponse<BookResponse>>(`${this.API_URL}/update/${id}`);
+  getBookUpdate(id: number): Observable<ApiResponse<BookUpdateResponse>> {
+    return this.http.get<ApiResponse<BookUpdateResponse>>(`${this.API_URL}/update/${id}`);
   }
 
   createBook(book: BookCreate): Observable<ApiResponse<BookResponse>> {

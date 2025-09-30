@@ -4,3 +4,7 @@ export interface CategoryResponse {
   description: string;
 }
 
+export interface CategoryUpdateResponse {
+  id: number;
+  name: string;
+}

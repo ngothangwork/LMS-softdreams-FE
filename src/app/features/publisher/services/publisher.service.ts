@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiResponse } from '../../../core/models/api-response';
-import { PublisherCreate, PublisherResponse, PublisherUpdate } from '../models/publisher.model';
+import {PublisherCreate, PublisherResponse, PublisherUpdate, PublisherUpdateResponse} from '../models/publisher.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,10 @@ export class PublisherService {
 
   getPublisherById(id: number): Observable<ApiResponse<PublisherResponse>> {
     return this.http.get<ApiResponse<PublisherResponse>>(`${this.url}/${id}`);
+  }
+
+  getPublisherUpdate() : Observable<ApiResponse<PublisherUpdateResponse[]>> {
+    return this.http.get<ApiResponse<PublisherUpdateResponse[]>>(`${this.url}/options`);
   }
 
   createPublisher(publisher: PublisherCreate): Observable<ApiResponse<PublisherResponse>> {

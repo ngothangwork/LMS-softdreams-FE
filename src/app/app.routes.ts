@@ -21,6 +21,7 @@ import { PublisherListComponent } from './features/publisher/pages/publisher-lis
 import {MainManagerComponent} from './features/manager/layout/main-manager';
 import {AuthGuard} from './auth-guard';
 import {BookDetailManagerComponent} from './features/book/pages/book-detail-manager-pages/book-detail-manager';
+import {BorrowListComponent} from './features/borrow/pages/borrow-list-pages/borrow-list';
 
 
 export const routes: Routes = [
@@ -31,26 +32,30 @@ export const routes: Routes = [
     path: 'manager',
     component: MainManagerComponent,
     canActivate: [AuthGuard],
+    data: { roles: ['ADMIN', 'LIBRARIAN'] },
     children: [
-      { path: 'books', component: BookListComponent },
-      { path: 'books/create', component: BookCreateComponent },
-      { path: 'books/update/:id', component: BookUpdateComponent },
-      { path: 'books/detail/:id', component: BookDetailManagerComponent },
+      { path: 'books', component: BookListComponent, data: { roles: ['ADMIN', 'LIBRARIAN'] } },
+      { path: 'books/create', component: BookCreateComponent, data: { roles: ['ADMIN', 'LIBRARIAN'] } },
+      { path: 'books/update/:id', component: BookUpdateComponent, data: { roles: ['ADMIN', 'LIBRARIAN'] } },
+      { path: 'books/detail/:id', component: BookDetailManagerComponent, data: { roles: ['ADMIN', 'LIBRARIAN'] } },
 
-      { path: 'authors', component: AuthorListComponent },
-      { path: 'authors/create', component: AuthorCreateComponent },
-      { path: 'authors/update/:id', component: AuthorUpdateComponent },
+      { path: 'authors', component: AuthorListComponent, data: { roles: ['ADMIN'] } },
+      { path: 'authors/create', component: AuthorCreateComponent, data: { roles: ['ADMIN'] } },
+      { path: 'authors/update/:id', component: AuthorUpdateComponent, data: { roles: ['ADMIN'] } },
 
-      { path: 'categories', component: CategoryListComponent },
-      { path: 'categories/create', component: CategoryCreateComponent },
+      { path: 'categories', component: CategoryListComponent, data: { roles: ['ADMIN'] } },
+      { path: 'categories/create', component: CategoryCreateComponent, data: { roles: ['ADMIN'] } },
 
-      { path: 'publishers', component: PublisherListComponent },
-      { path: 'publishers/create', component: PublisherCreateComponent },
-      { path: 'publishers/update/:id', component: PublisherUpdateComponent },
+      { path: 'publishers', component: PublisherListComponent, data: { roles: ['ADMIN'] } },
+      { path: 'publishers/create', component: PublisherCreateComponent, data: { roles: ['ADMIN'] } },
+      { path: 'publishers/update/:id', component: PublisherUpdateComponent, data: { roles: ['ADMIN'] } },
+
+      { path: 'borrows', component: BorrowListComponent, data: { roles: ['ADMIN', 'LIBRARIAN'] } },
 
       { path: '', redirectTo: 'books', pathMatch: 'full' }
     ]
   },
+
 
   { path: 'books/customer', component: BookCustomerListComponent },
   { path: 'books/customer/:id', component: BookListComponent },

@@ -5,15 +5,15 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { forkJoin } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import { AuthorResponse } from '../../../author/models/author.model';
-import { PublisherResponse } from '../../../publisher/models/publisher.model';
-import { CategoryResponse } from '../../../category/models/category.model';
+import {AuthorUpdateResponse} from '../../../author/models/author.model';
+import {PublisherResponse, PublisherUpdateResponse} from '../../../publisher/models/publisher.model';
+import {CategoryResponse, CategoryUpdateResponse} from '../../../category/models/category.model';
 import { BookService } from '../../services/book.services';
 import { AuthorService } from '../../../author/services/author.service';
 import { CategoryService } from '../../../category/services/category.service';
 import { PublisherService } from '../../../publisher/services/publisher.service';
 import { FileService } from '../../../../core/file/file.service';
-import { BookResponse, BookUpdate } from '../../models/book.model';
+import {BookUpdate, BookUpdateResponse} from '../../models/book.model';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -30,9 +30,9 @@ import { ToastrService } from 'ngx-toastr';
 export class BookUpdateComponent implements OnInit {
   bookForm!: FormGroup;
   bookId!: number;
-  authors: AuthorResponse[] = [];
-  categories: CategoryResponse[] = [];
-  publishers: PublisherResponse[] = [];
+  authors: AuthorUpdateResponse[] = [];
+  categories: CategoryUpdateResponse[] = [];
+  publishers: PublisherUpdateResponse[] = [];
   selectedFile?: File;
 
   authorDropdownSettings = {
@@ -75,7 +75,7 @@ export class BookUpdateComponent implements OnInit {
     this.bookForm = this.fb.group({
       name: ['', Validators.required],
       avatar: [''],
-      isbn: ['', Validators.required],
+      isbn: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
       publisherId: [null, Validators.required],
       authorIds: [[], Validators.required],
       categoryIds: [[], Validators.required],
@@ -86,25 +86,27 @@ export class BookUpdateComponent implements OnInit {
 
   loadData() {
     forkJoin({
-      authors: this.authorService.getAuthors(),
-      categories: this.categoryService.getCategory(),
-      publishers: this.publisherService.getPublishers(),
+      authors: this.authorService.getAuthorUpdates(),
+      categories: this.categoryService.getCategoryUpdate(),
+      publishers: this.publisherService.getPublisherUpdate(),
       book: this.bookService.getBookUpdate(this.bookId)
     }).subscribe({
       next: ({ authors, categories, publishers, book }) => {
         this.authors = authors.result ?? [];
         this.categories = categories.result ?? [];
         this.publishers = publishers.result ?? [];
-        const b: BookResponse = book.result;
+        const b: BookUpdateResponse = book.result;
 
         this.bookForm.patchValue({
           name: b.name,
           avatar: b.avatar,
           isbn: b.isbn,
-          publisherId: (b as any).publisherId,
+          publisherId: b.publisherId,
           authorIds: this.authors.filter(a => b.authorIds.includes(a.id)),
           categoryIds: this.categories.filter(c => b.categoryIds.includes(c.id)),
         });
+
+
       },
       error: () => alert('Failed to load data!')
     });
@@ -125,24 +127,27 @@ export class BookUpdateComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.bookForm.valid) {
-      const formValue = this.bookForm.value;
-
-      const payload: BookUpdate = {
-        ...formValue,
-        authorIds: formValue.authorIds.map((a: any) => a.id),
-        categoryIds: formValue.categoryIds.map((c: any) => c.id),
-        publisherId: formValue.publisherId
-      };
-
-      this.bookService.patchBook(this.bookId, payload).subscribe({
-        next: () => {
-          this.toastr.success('Update success!');
-          this.dialogRef.close(true);
-        },
-        error: () => alert('Update failed!')
-      });
+    if (this.bookForm.invalid) {
+      this.bookForm.markAllAsTouched();
+      this.toastr.error('Vui lòng kiểm tra lại thông tin nhập vào', 'Form không hợp lệ');
+      return;
     }
+
+    const formValue = this.bookForm.value;
+    const payload: BookUpdate = {
+      ...formValue,
+      authorIds: formValue.authorIds.map((a: any) => a.id),
+      categoryIds: formValue.categoryIds.map((c: any) => c.id),
+      publisherId: formValue.publisherId
+    };
+
+    this.bookService.patchBook(this.bookId, payload).subscribe({
+      next: () => {
+        this.toastr.success('Update success!');
+        this.dialogRef.close(true);
+      },
+      error: () => this.toastr.error('Update failed!')
+    });
   }
 
   onClose() {

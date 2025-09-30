@@ -5,11 +5,10 @@ import {CategoryResponse} from '../../category/models/category.model';
 export interface BookResponse {
   id: number;
   name: string;
-  isbn: string;
   avatar: string;
-  authorIds: number[];
-  categoryIds: number[];
+  isbn: string;
 }
+
 
 export interface BookCreate {
   name: string;
@@ -34,6 +33,15 @@ export interface BookUpdate {
   categoryIds: number[];
 }
 
+export interface BookUpdateResponse {
+  name: string;
+  avatar: string;
+  isbn: string;
+  publisherId: number;
+  authorIds: number[];
+  categoryIds: number[];
+}
+
 
 export interface BookDetailResponse {
   id: number;
@@ -47,6 +55,14 @@ export interface BookDetailResponse {
   numberOfAvailable: number;
 }
 
-export interface BookDetailManagerResponse {
-
+export interface BookDetailResponseDTO {
+  id: number;
+  name: string;
+  isbn: string;
+  avatar: string;
+  publisherName: string;
+  authors: string;
+  categories: string;
+  numberOfBorrowed: number;
+  numberOfAvailable: number;
 }

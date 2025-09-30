@@ -7,8 +7,8 @@
         <label for="name">Name</label>
         <input id="name" formControlName="name" type="text" />
         <div class="error" *ngIf="publisherForm.get('name')?.touched && publisherForm.get('name')?.invalid">
-          <small *ngIf="publisherForm.get('name')?.errors?.['required']">Name is required</small>
-          <small *ngIf="publisherForm.get('name')?.errors?.['minlength']">At least 4 characters</small>
+          <div *ngIf="publisherForm.get('name')?.errors?.['required']">Name is required</div>
+          <div *ngIf="publisherForm.get('name')?.errors?.['minlength']">At least 4 characters</div>
         </div>
       </div>
 
@@ -16,7 +16,7 @@
         <label for="address">Address</label>
         <input id="address" formControlName="address" type="text"/>
         <div class="error" *ngIf="publisherForm.get('address')?.touched && publisherForm.get('address')?.invalid">
-          <small *ngIf="publisherForm.get('address')?.errors?.['required']">Address is required</small>
+          <div *ngIf="publisherForm.get('address')?.errors?.['required']">Address is required</div>
         </div>
       </div>
 
@@ -24,8 +24,8 @@
         <label for="phone">Phone</label>
         <input id="phone" formControlName="phone" type="text"/>
         <div class="error" *ngIf="publisherForm.get('phone')?.touched && publisherForm.get('phone')?.invalid">
-          <small *ngIf="publisherForm.get('phone')?.errors?.['required']">Phone is required</small>
-          <small *ngIf="publisherForm.get('phone')?.errors?.['pattern']">Invalid phone number</small>
+          <div *ngIf="publisherForm.get('phone')?.errors?.['required']">Phone is required</div>
+          <div *ngIf="publisherForm.get('phone')?.errors?.['pattern']">Invalid phone number</div>
         </div>
       </div>
 

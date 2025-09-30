@@ -1,9 +1,7 @@
-
 <div class="header-book-detail">
   <button (click)="goBack()" class="btn btn-primary">Trở về</button>
   <td class="actions">
     <button (click)="openUpdateDialog()" class="btn btn-warning">Edit</button>
-    <button (click)="deleteBook()" class="btn btn-danger">Delete</button>
   </td>
 </div>
 
@@ -58,6 +56,25 @@
     <div class="book-detail-content">
       <div class="book-detail-label">Số sách còn:</div>
       <div class="book-detail-value">{{ bookDetail.numberOfAvailable }}</div>
+    </div>
+    <div class="book-detail-content">
+      <div class="book-detail-label">Tình trạng các bản ghi:</div>
+      <div class="book-detail-value">
+        <table class="book-copy-table">
+          <thead>
+          <tr>
+            <th>Mã vạch</th>
+            <th>Trạng thái</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let bookCopy of bookCopies">
+            <td>{{ bookCopy.barcode }}</td>
+            <td>{{ bookCopy.status || 'Không rõ' }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
   </div>

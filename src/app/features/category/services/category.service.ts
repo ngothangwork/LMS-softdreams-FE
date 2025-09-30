@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ApiResponse} from '../../../core/models/api-response';
 import {Observable} from 'rxjs';
-import {CategoryResponse} from '../models/category.model';
+import {CategoryResponse, CategoryUpdateResponse} from '../models/category.model';
 import {CategoryCreate} from '../models/category-create.model';
 import {CategoryUpdate} from '../models/category-update.model';
 
@@ -28,6 +28,10 @@ export class CategoryService {
 
   getByCategoryName(name: string): Observable<ApiResponse<CategoryResponse[]>> {
     return this.http.get<ApiResponse<CategoryResponse[]>>(`${this.url}/name/${name}`);
+  }
+
+  getCategoryUpdate(): Observable<ApiResponse<CategoryUpdateResponse[]>> {
+    return this.http.get<ApiResponse<CategoryUpdateResponse[]>>(`${this.url}/options`);
   }
 
   createCategory(category: CategoryCreate): Observable<ApiResponse<CategoryResponse>> {

@@ -16,3 +16,8 @@ export interface PublisherUpdate {
   address: string;
   phone: string;
 }
+
+export interface PublisherUpdateResponse {
+  id: number;
+  name: string;
+}
