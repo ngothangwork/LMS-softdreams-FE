@@ -1,7 +1,9 @@
 export interface  BorrowResponse {
   id: number;
+  bookId: number;
   bookName: string;
   bookCopyId: number;
+  barcode: string;
   username: string;
   borrowDate: string;
   returnDate: string;
@@ -16,8 +18,11 @@ export interface  BorrowCreateRequest {
 }
 
 export interface  BorrowUpdateRequest {
-  borrowDate: string;
-  returnDate: string;
-  bookId: number;
-  userId: string;
+  bookCopyId: number;
+  status: string;
+}
+
+
+export interface  BorrowUpdateStatusRequest {
+  status: string;
 }

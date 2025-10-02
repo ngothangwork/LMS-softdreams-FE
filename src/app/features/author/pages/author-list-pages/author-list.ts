@@ -134,8 +134,6 @@ export class AuthorListComponent implements OnInit {
     this.goToPage(0);
   }
 
-
-
   onDelete(id: number) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '400px',

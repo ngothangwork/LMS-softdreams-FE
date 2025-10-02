@@ -6,7 +6,12 @@
       <div class="form-group">
         <label>Tên</label>
         <input formControlName="name" type="text" />
+        <div class="error" *ngIf="bookForm.get('name')?.touched && bookForm.get('name')?.invalid">
+          <small *ngIf="bookForm.get('name')?.errors?.['required']">Tên sách là bắt buộc</small>
+          <small *ngIf="bookForm.get('name')?.errors?.['minlength']">Tên phải có ít nhất 3 ký tự</small>
+        </div>
       </div>
+
 
       <div class="form-group">
         <label>Ảnh bìa</label>
@@ -19,14 +24,23 @@
       <div class="form-group">
         <label>ISBN</label>
         <input formControlName="isbn" type="text" />
+        <div class="error" *ngIf="bookForm.get('isbn')?.touched && bookForm.get('isbn')?.invalid">
+          <small *ngIf="bookForm.get('isbn')?.errors?.['required']">ISBN là bắt buộc</small>
+          <small *ngIf="bookForm.get('isbn')?.errors?.['pattern']">ISBN chỉ được chứa số và dấu -</small>
+        </div>
       </div>
+
 
       <div class="form-group">
         <label>Nhà xuất bản</label>
         <select formControlName="publisherId">
           <option *ngFor="let p of publishers" [value]="p.id">{{ p.name }}</option>
         </select>
+        <div class="error" *ngIf="bookForm.get('publisherId')?.touched && bookForm.get('publisherId')?.invalid">
+          <small>Vui lòng chọn nhà xuất bản</small>
+        </div>
       </div>
+
 
       <div class="form-group">
         <label>Tác giả</label>
@@ -36,6 +50,9 @@
           [settings]="authorDropdownSettings"
           placeholder="Chọn tác giả">
         </ng-multiselect-dropdown>
+        <div class="error" *ngIf="bookForm.get('authorIds')?.touched && bookForm.get('authorIds')?.invalid">
+          <small>Vui lòng chọn ít nhất một tác giả</small>
+        </div>
       </div>
 
       <div class="form-group">
@@ -46,6 +63,9 @@
           [settings]="categoryDropdownSettings"
           placeholder="Chọn thể loại">
         </ng-multiselect-dropdown>
+        <div class="error" *ngIf="bookForm.get('categoryIds')?.touched && bookForm.get('categoryIds')?.invalid">
+          <small>Vui lòng chọn ít nhất một thể loại</small>
+        </div>
       </div>
 
       <div class="actions">

@@ -26,9 +26,9 @@ export class AuthorCreateComponent {
     private dialogRef: MatDialogRef<AuthorUpdateComponent>,
   ) {
     this.authorForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(4)]],
+      name: ['', [Validators.required, Validators.minLength(4), ]],
       dob: ['', Validators.required],
-      nationality: ['', [Validators.required, Validators.maxLength(50)]],
+      nationality: ['', [ Validators.maxLength(50)]],
       description: ['', [Validators.maxLength(500)]]
     });
   }

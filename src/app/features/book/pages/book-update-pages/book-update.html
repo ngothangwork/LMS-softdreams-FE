@@ -6,20 +6,28 @@
 
         <div class="form-group">
           <label>Tên:</label>
-          <input formControlName="name" type="text" />
+          <input formControlName="name" type="text"/>
+          <div class="error" *ngIf="bookForm.get('name')?.invalid && bookForm.get('name')?.touched">
+            Tên sách là bắt buộc
+          </div>
         </div>
 
         <div class="form-group">
-          <label>Ảnh bìa:</label>
+          <label>Avatar:</label>
           <input type="file" (change)="onFileSelected($event)" />
-          <img *ngIf="bookForm.get('avatar')?.value"
-               [src]="bookForm.get('avatar')?.value"
-               alt="preview"/>
+          <div *ngIf="bookForm.get('avatar')?.value">
+            <img [src]="bookForm.get('avatar')?.value" alt="Book Avatar" width="100"/>
+          </div>
         </div>
+
 
         <div class="form-group">
           <label>ISBN:</label>
-          <input formControlName="isbn" type="text" />
+          <input formControlName="isbn" type="text"/>
+          <div class="error" *ngIf="bookForm.get('isbn')?.invalid && bookForm.get('isbn')?.touched">
+            <span *ngIf="bookForm.get('isbn')?.errors?.['required']">ISBN là bắt buộc</span>
+            <span *ngIf="bookForm.get('isbn')?.errors?.['pattern']">ISBN chỉ được chứa số hoặc dấu gạch (-)</span>
+          </div>
         </div>
 
         <div class="form-group">
@@ -27,6 +35,9 @@
           <select formControlName="publisherId">
             <option *ngFor="let p of publishers" [value]="p.id">{{ p.name }}</option>
           </select>
+          <div class="error" *ngIf="bookForm.get('publisherId')?.invalid && bookForm.get('publisherId')?.touched">
+            Vui lòng chọn nhà cung cấp
+          </div>
         </div>
 
         <div class="form-group">
@@ -37,6 +48,9 @@
             [settings]="authorDropdownSettings"
             placeholder="Chọn tác giả">
           </ng-multiselect-dropdown>
+          <div class="error" *ngIf="bookForm.get('authorIds')?.invalid && bookForm.get('authorIds')?.touched">
+            Vui lòng chọn ít nhất một tác giả
+          </div>
         </div>
 
         <div class="form-group">
@@ -47,7 +61,11 @@
             [settings]="categoryDropdownSettings"
             placeholder="Chọn thể loại">
           </ng-multiselect-dropdown>
+          <div class="error" *ngIf="bookForm.get('categoryIds')?.invalid && bookForm.get('categoryIds')?.touched">
+            Vui lòng chọn ít nhất một thể loại
+          </div>
         </div>
+
 
         <div class="actions">
           <button type="submit" class="btn btn-primary" [disabled]="bookForm.invalid">Update</button>

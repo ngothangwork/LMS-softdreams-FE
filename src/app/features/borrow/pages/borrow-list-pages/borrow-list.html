@@ -1,29 +1,32 @@
-<div class="borrow-list-container">
-  <h2>Danh sách mượn sách</h2>
-
-  <div *ngIf="loading">Đang tải dữ liệu...</div>
-
-  <div class="action-buttons">
-    <a href="http://localhost:8080/borrows/export?format=pdf" target="_blank">
-      <button>Export PDF</button>
-    </a>
-    <a href="http://localhost:8080/borrows/export?format=xlsx" target="_blank">
-      <button>Export Excel</button>
-    </a>
+<div class="borrow-list">
+  <div class="actions">
+    <div class="export-file">
+      <div class="export-button">
+        <button (click)="exportExcel()">
+          <i class="fas fa-file-excel"></i>
+          Export Excel
+        </button>
+      </div>
+      <div class="export-button">
+        <button (click)="exportPdf()">
+          <i class="fas fa-file-pdf"></i>
+          Export PDF
+        </button>
+      </div>
+    </div>
   </div>
-
 
   <table *ngIf="!loading && borrows.length > 0" class="borrow-table">
     <thead>
     <tr>
       <th>ID</th>
       <th>Tên sách</th>
-      <th>User</th>
-      <th>Borrow Date</th>
-      <th>Return Date</th>
-      <th>Status</th>
-      <th>BookCopyId</th>
-      <th>Action</th>
+      <th>Người mượn</th>
+      <th>Ngày mượn</th>
+      <th>Ngày phải trả</th>
+      <th>Trạng thái</th>
+      <th>Bản sao</th>
+      <th>Hành động</th>
     </tr>
     </thead>
     <tbody>
@@ -34,15 +37,41 @@
       <td>{{ b.borrowDate }}</td>
       <td>{{ b.returnDate }}</td>
       <td>{{ b.status }}</td>
-      <td>{{ b.bookCopyId || '-' }}</td>
+
       <td>
-        <button (click)="goToEdit(b.id)">Chỉnh sửa</button>
+        <ng-container *ngIf="!b.barcode && b.status !== 'CANCELLED'; else showInfo">
+          <select
+            (click)="onDropdownOpen(b)"
+            [(ngModel)]="selectedBookCopy[b.id]"
+          >
+            <option [ngValue]="null">-- Chọn BookCopy --</option>
+            <option
+              *ngFor="let copy of bookCopiesMap[b.id]"
+              [value]="copy.id"
+            >
+              {{ copy.id }} - {{ copy.barcode }}
+            </option>
+          </select>
+        </ng-container>
+        <ng-template #showInfo>
+          <span *ngIf="b.barcode">{{ b.bookCopyId }} - {{ b.barcode }}</span>
+          <span *ngIf="b.status === 'CANCELLED'">Đã từ chối</span>
+        </ng-template>
       </td>
+
+      <td>
+        <ng-container *ngIf="b.status === 'REQUESTED' && !b.barcode">
+          <button (click)="acceptBorrow(b)">Chấp nhận</button>
+          <button (click)="rejectBorrow(b)">Từ chối</button>
+        </ng-container>
+
+        <ng-container *ngIf="b.status === 'BORROWED'">
+          <button (click)="returnBorrow(b)">Trả sách</button>
+        </ng-container>
+      </td>
+
+
     </tr>
     </tbody>
   </table>
-
-  <div *ngIf="!loading && borrows.length === 0">
-    Không có borrow nào.
-  </div>
 </div>

@@ -1,12 +1,12 @@
-.login-page {
+.register-page {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 100px;
+  margin-top: 50px;
   background-color: #ffffff;
 }
 
-.login-container {
+.register-container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,56 +19,45 @@
   padding: 20px;
 }
 
-.login-form {
-  width: 300px;
+.register-form {
+  width: 350px;
   padding: 20px;
   display: flex;
   flex-direction: column;
-}
-
-.login-input {
-  padding: 10px 12px;
-  border-radius: 8px;
-  font-size: 14px;
-  display: flex;
-  flex-direction: column;
-}
-
-.login-input input {
-  padding: 10px 12px;
-  border: none;
-  border-bottom: 1px solid #ccc;
-}
-
-.login-button {
-  padding: 10px 12px;
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background 0.2s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 10px;
 }
 
-.login-button button {
+.register-input input,
+.register-input select {
+  padding: 10px 12px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 100%;
+}
+
+.register-button {
+  display: flex;
+  justify-content: center;
+}
+
+.register-button button {
   background: #265a93;
   color: white;
   border: none;
-  padding: 10px 12px;
+  padding: 10px 20px;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
   transition: background 0.2s;
 }
 
-.login-button button:hover {
+.register-button button:hover {
   background: #1a4271;
 }
 
-.login-register {
+.register-login-link {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,3 +69,11 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+.error div {
+  color: red;
+  font-size: 12px;
+  display: block;
+  margin-top: 2px;
+}
+

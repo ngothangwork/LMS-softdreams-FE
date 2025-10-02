@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.username, this.password).subscribe({
       next: (res) => {
         if (res.success) {
-          console.log(localStorage.getItem('user'));
           this.toastr.success("Đăng nhập thành công");
           this.router.navigate(['/home']);
         } else {
@@ -40,5 +39,9 @@ export class LoginComponent implements OnInit {
         console.error('Lỗi API:', err);
       }
     });
+  }
+
+  goToRegister(): void {
+    this.router.navigate(['/register']);
   }
 }

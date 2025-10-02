@@ -4,6 +4,7 @@ import {BehaviorSubject, Observable, tap, throwError} from 'rxjs';
 import { ApiResponse } from '../models/api-response';
 import { UserLoginResponse } from '../../features/auth/pages/login-page/models/user-login-response';
 import {Router} from '@angular/router';
+import {RegisterRequest} from '../../features/auth/pages/register-pages/model/register.model';
 
 @Injectable({
   providedIn: 'root'
@@ -67,6 +68,10 @@ export class AuthService {
 
   getRole(): string | null {
     return this.getUser()?.userRole?.toUpperCase() || null;
+  }
+
+  register(registerData: RegisterRequest): Observable<any> {
+    return this.http.post(`${this.API_URL}/register`, registerData);
   }
 
 

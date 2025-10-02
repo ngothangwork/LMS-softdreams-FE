@@ -67,6 +67,8 @@
 }
 
 .btn-primary {
+  border: none;
+  padding: 2px;
   background: #007bff;
   color: #fff;
 }
@@ -76,11 +78,15 @@
 }
 
 .btn-warning {
+  border: none;
+  padding: 2px;
   background: #ffc107;
   color: #333;
 }
 
 .btn-danger {
+  border: none;
+  padding: 2px;
   background: #dc3545;
   color: white;
 }

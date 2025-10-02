@@ -1,3 +1,38 @@
+.borrow-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.actions {
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.export-file {
+  display: flex;
+  flex-direction: row;
+}
+
+.export-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.export-button button {
+  padding: 4px 10px;
+  margin: 2px;
+  background: #265a93;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
 .borrow-list-container {
   padding: 20px;
 }

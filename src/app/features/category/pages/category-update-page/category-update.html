@@ -1,7 +1,7 @@
 <div class="mordal-overlay">
   <div class="modal-content">
     <h2>
-      Create Author
+      Thêm thể loại
     </h2>
 
     <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" class="category-form" *ngIf="!loading">
@@ -10,21 +10,22 @@
         <input id="name" formControlName="name" type="text"/>
       </div>
       <div class="error" *ngIf="name?.touched && name?.invalid">
-        <div *ngIf="name?.errors?.['required']">Name is required</div>
-        <div *ngIf="name?.errors?.['minlength']">Name must be at least 4 characters</div>
+        <div *ngIf="name?.errors?.['required']">Yêu cầu nhập tên</div>
+        <div *ngIf="name?.errors?.['minlength']">Tên phải có nhiều hơn 4 ký tự</div>
       </div>
 
       <div class="form-group">
         <label for="description">Mô tả thể loại</label>
         <textarea id="description" formControlName="description"></textarea>
       </div>
+
       <div class="error" *ngIf="description?.touched && description?.invalid">
-        <div *ngIf="description?.errors?.['maxlength']">Description must be less than 500 characters</div>
+        <div *ngIf="description?.errors?.['maxlength']">Mô tả ít thôi</div>
       </div>
 
       <div class="actions">
-        <button type="button" class="btn btn-primary" (click)="onClose()">Hủy</button>
-        <button type="submit" class="btn btn-secondary" [disabled]="categoryForm.invalid">Cập nhật</button>
+        <button type="button" class="btn btn-secondary" (click)="onClose()">Hủy</button>
+        <button type="submit" class="btn btn-primary" [disabled]="categoryForm.invalid">Cập nhật</button>
       </div>
     </form>
 

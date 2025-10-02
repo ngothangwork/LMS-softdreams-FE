@@ -8,6 +8,9 @@ import {BookUpdateComponent} from '../book-update-pages/book-update';
 import {MatDialog} from '@angular/material/dialog';
 import {BookCopyService} from '../../../bookcopies/services/bookcopy.service';
 import {BookCopyListResponse} from '../../../bookcopies/models/bookcopy.model';
+import {BookCopyCreateComponent} from '../../../bookcopies/pages/bookcopy-create-pages/bookcopy-create';
+import {BookCopyUpdateComponent} from '../../../bookcopies/pages/bookcopy-update-pages/bookcopy-update';
+import {ConfirmDialogComponent} from '../../../../shared/ui/confirm-dialog.component';
 
 @Component({
   selector: 'app-book-detail-manager',
@@ -59,16 +62,39 @@ export class BookDetailManagerComponent implements OnInit{
     });
   }
 
-  openUpdateDialog() {
-    const dialogRef = this.dialog.open(BookUpdateComponent, {
-      width: '700px',
+  openCreateDialog(bookId: number) {
+    const dialogRef = this.dialog.open(BookCopyCreateComponent, {
+      width: '600px',
       disableClose: true,
-      data: { id: this.bookId }
+      data: { bookId }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.loadBookDetail();
+        this.loadBookCopies();
+      }
+    });
+  }
+
+
+  onDelete(id: number) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      disableClose: true,
+      data: { message: 'Bạn có chắc chắn muốn xóa bản sao sách này?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.bookCopyService.deleteBookCopy(id).subscribe({
+          next: () => {
+            this.toast.success('Xóa bản sao sách thành công');
+            this.loadBookCopies();
+          },
+          error: () => {
+            this.toast.error('Xóa bản sao sách thất bại', 'Lỗi');
+          }
+        });
       }
     });
   }

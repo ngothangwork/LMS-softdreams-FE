@@ -1,18 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 
-import { AuthorResponse } from '../../../author/models/author.model';
-import { PublisherResponse } from '../../../publisher/models/publisher.model';
-import { CategoryResponse } from '../../../category/models/category.model';
-import { BookService } from '../../services/book.services';
-import { AuthorService } from '../../../author/services/author.service';
-import { CategoryService } from '../../../category/services/category.service';
-import { PublisherService } from '../../../publisher/services/publisher.service';
+import {AuthorResponse} from '../../../author/models/author.model';
+import {PublisherResponse} from '../../../publisher/models/publisher.model';
+import {CategoryResponse} from '../../../category/models/category.model';
+import {BookService} from '../../services/book.services';
+import {AuthorService} from '../../../author/services/author.service';
+import {CategoryService} from '../../../category/services/category.service';
+import {PublisherService} from '../../../publisher/services/publisher.service';
 import {FileService} from '../../../../core/file/file.service';
 import {ToastrService} from 'ngx-toastr';
-import {Router} from '@angular/router';
 import {MatDialogRef} from '@angular/material/dialog';
 
 @Component({
@@ -42,14 +41,23 @@ export class BookCreateComponent implements OnInit {
     private fileService: FileService,
     private toast: ToastrService,
     private dialogRef: MatDialogRef<BookCreateComponent>,
-  ) {}
+  ) {
+    this.bookForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      avatar: ['',],
+      isbn: ['', [Validators.required, Validators.pattern(/^[0-9\-]+$/)]],
+      publisherId: ['', Validators.required],
+      authorIds: [[], Validators.required],
+      categoryIds: [[], Validators.required],
+    });
+  }
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
     if (this.selectedFile) {
       this.fileService.uploadFile(this.selectedFile).subscribe(res => {
         if (res.success && res.result) {
-          this.bookForm.patchValue({ avatar: res.result });
+          this.bookForm.patchValue({avatar: res.result});
         }
       });
     }
@@ -108,10 +116,21 @@ export class BookCreateComponent implements OnInit {
         publisherId: formValue.publisherId
       };
 
-      this.bookService.createBook(payload).subscribe(res => {
-        this.toast.success('Thêm sách thành công');
-        this.dialogRef.close(true);
+      this.bookService.createBook(payload).subscribe({
+        next: (res) => {
+          this.toast.success('Thêm sách thành công');
+          this.dialogRef.close(true);
+        },
+        error: (err) => {
+          console.error('Error:', err);
+          this.toast.error(err.error.message, 'Error');
+        }
       });
+    } else {
+      Object.values(this.bookForm.controls).forEach(control => {
+        control.markAsTouched();
+      });
+      this.toast.warning('Vui lòng nhập đầy đủ và đúng thông tin trước khi thêm');
     }
 
   }

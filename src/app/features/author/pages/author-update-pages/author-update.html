@@ -9,8 +9,8 @@
         <label for="name">Name</label>
         <input id="name" formControlName="name" type="text" />
         <div class="error" *ngIf="authorForm.get('name')?.touched && authorForm.get('name')?.invalid">
-          <small *ngIf="authorForm.get('name')?.errors?.['required']">Name is required</small>
-          <small *ngIf="authorForm.get('name')?.errors?.['minlength']">Name must be at least 4 characters</small>
+          <div *ngIf="authorForm.get('name')?.errors?.['required']">Name is required</div>
+          <div *ngIf="authorForm.get('name')?.errors?.['minlength']">Name must be at least 4 characters</div>
         </div>
       </div>
 
@@ -18,7 +18,7 @@
         <label for="dob">Date of Birth</label>
         <input id="dob" formControlName="dob" type="date" />
         <div class="error" *ngIf="authorForm.get('dob')?.touched && authorForm.get('dob')?.invalid">
-          <small *ngIf="authorForm.get('dob')?.errors?.['required']">Date of birth is required</small>
+          <div *ngIf="authorForm.get('dob')?.errors?.['required']">Date of birth is required</div>
         </div>
       </div>
 
@@ -26,8 +26,8 @@
         <label for="nationality">Nationality</label>
         <input id="nationality" formControlName="nationality" type="text" />
         <div class="error" *ngIf="authorForm.get('nationality')?.touched && authorForm.get('nationality')?.invalid">
-          <small *ngIf="authorForm.get('nationality')?.errors?.['required']">Nationality is required</small>
-          <small *ngIf="authorForm.get('nationality')?.errors?.['maxlength']">Max 50 characters allowed</small>
+          <div *ngIf="authorForm.get('nationality')?.errors?.['required']">Nationality is required</div>
+          <div *ngIf="authorForm.get('nationality')?.errors?.['maxlength']">Max 50 characters allowed</div>
         </div>
       </div>
 
@@ -35,7 +35,7 @@
         <label for="description">Description</label>
         <textarea id="description" formControlName="description"></textarea>
         <div class="error" *ngIf="authorForm.get('description')?.touched && authorForm.get('description')?.invalid">
-          <small *ngIf="authorForm.get('description')?.errors?.['maxlength']">Max 500 characters allowed</small>
+          <div *ngIf="authorForm.get('description')?.errors?.['maxlength']">Max 500 characters allowed</div>
         </div>
       </div>
 

@@ -1,0 +1,82 @@
+<div class="register-page">
+  <div class="register-container">
+    <div class="register-page-title">
+      <h1>Đăng ký</h1>
+    </div>
+
+    <form [formGroup]="registerForm" class="register-form" (ngSubmit)="onSubmit()">
+
+      <div class="register-input">
+        <input id="username" formControlName="username" placeholder="Tài khoản"/>
+        <div class="error" *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.invalid">
+          <div *ngIf="registerForm.get('username')?.errors?.['required']">Tài khoản không được để trống</div>
+          <div *ngIf="registerForm.get('username')?.errors?.['minlength']">Tối thiểu 8 ký tự</div>
+          <div *ngIf="registerForm.get('username')?.errors?.['maxlength']">Tối đa 50 ký tự</div>
+        </div>
+      </div>
+
+      <div class="register-input">
+        <input id="password" type="password" formControlName="password" placeholder="Mật khẩu"/>
+        <div class="error" *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
+          <div *ngIf="registerForm.get('password')?.errors?.['required']">Mật khẩu không được để trống</div>
+          <div *ngIf="registerForm.get('password')?.errors?.['minlength']">Tối thiểu 6 ký tự</div>
+        </div>
+      </div>
+
+      <div class="register-input">
+        <input id="email" type="email" formControlName="email" placeholder="Email"/>
+        <div class="error" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
+          <div *ngIf="registerForm.get('email')?.errors?.['email']">Email không hợp lệ</div>
+        </div>
+      </div>
+
+      <div class="register-input">
+        <input id="phoneNumber" formControlName="phoneNumber" placeholder="Số điện thoại"/>
+        <div class="error" *ngIf="registerForm.get('phoneNumber')?.touched && registerForm.get('phoneNumber')?.invalid">
+          <div *ngIf="registerForm.get('phoneNumber')?.errors?.['pattern']">Số điện thoại phải từ 9-15 chữ số</div>
+        </div>
+      </div>
+
+      <div class="register-input">
+        <input id="fullName" formControlName="fullName" placeholder="Tên"/>
+        <div class="error" *ngIf="registerForm.get('fullName')?.touched && registerForm.get('fullName')?.invalid">
+          <div *ngIf="registerForm.get('fullName')?.errors?.['required']">Tên không được để trống</div>
+          <div *ngIf="registerForm.get('fullName')?.errors?.['pattern']">Tên không hợp lệ (chỉ chứa chữ, không ký tự đặc biệt)</div>
+          <div *ngIf="registerForm.get('fullName')?.errors?.['minlength']">Tối thiểu 8 ký tự</div>
+          <div *ngIf="registerForm.get('fullName')?.errors?.['maxlength']">Tối đa 50 ký tự</div>
+        </div>
+      </div>
+
+
+      <div class="register-input">
+        <input id="address" formControlName="address" placeholder="Địa chỉ"/>
+        <div class="error" *ngIf="registerForm.get('address')?.touched && registerForm.get('address')?.invalid">
+          <div *ngIf="registerForm.get('address')?.errors?.['maxlength']">Địa chỉ tối đa 255 ký tự</div>
+        </div>
+      </div>
+
+      <div class="register-input">
+        <select formControlName="gender">
+          <option value="" disabled>Giới tính</option>
+          <option value="male">Nam</option>
+          <option value="female">Nữ</option>
+          <option value="other">Khác</option>
+        </select>
+      </div>
+
+      <div class="register-input">
+        <input id="dob" type="date" formControlName="dob" placeholder="Ngày sinh"/>
+      </div>
+
+      <div class="register-button">
+        <button type="submit" [disabled]="registerForm.invalid">Đăng ký</button>
+      </div>
+
+      <div class="register-login-link">
+        <span>Đã có tài khoản</span>
+        <div class="btn-register" (click)="router.navigate(['/login'])">Đăng nhập</div>
+      </div>
+
+    </form>
+  </div>
+</div>

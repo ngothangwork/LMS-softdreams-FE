@@ -7,6 +7,10 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const token = authService.getToken();
 
+  if (req.url.includes('/auth/refresh')) {
+    return next(req);
+  }
+
   let cloned = req;
   if (token) {
     cloned = req.clone({
@@ -26,12 +30,13 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
         errMsg = error.message;
       }
 
-       if (
+      if (
         error.status === 401 &&
         errMsg?.toLowerCase().includes('expired') &&
         !req.headers.has('x-refresh')
       ) {
-        const authService = inject(AuthService);
+        console.warn("Access token expired, trying refresh...");
+
         return authService.refreshToken().pipe(
           switchMap((res) => {
             if (res.success) {
@@ -43,9 +48,11 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
               });
               return next(newReq);
             }
+            authService.logout();
             return throwError(() => error);
           }),
           catchError(() => {
+            console.error("Refresh token failed, logging out...");
             authService.logout();
             return throwError(() => error);
           })
@@ -55,5 +62,4 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
       return throwError(() => error);
     })
   );
-
 };

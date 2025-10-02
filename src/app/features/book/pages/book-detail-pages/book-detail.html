@@ -51,10 +51,16 @@
     </div>
 
     <div class="borrow">
-      <button class="borrow-btn" (click)="openCreateDialog(bookDetail.id)">
+      <button class="borrow-btn"
+              [disabled]="bookDetail.numberOfAvailable === 0"
+              (click)="openCreateDialog(bookDetail.id)">
         Mượn sách
       </button>
+      <span *ngIf="bookDetail?.numberOfAvailable === 0" class="out-of-stock">
+        (Hết sách, không thể mượn)
+     </span>
     </div>
+
   </div>
 </div>
 

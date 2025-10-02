@@ -22,11 +22,13 @@ import {MainManagerComponent} from './features/manager/layout/main-manager';
 import {AuthGuard} from './auth-guard';
 import {BookDetailManagerComponent} from './features/book/pages/book-detail-manager-pages/book-detail-manager';
 import {BorrowListComponent} from './features/borrow/pages/borrow-list-pages/borrow-list';
+import {RegisterPage} from './features/auth/pages/register-pages/page/register-page';
 
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'register', component: RegisterPage },
 
   {
     path: 'manager',

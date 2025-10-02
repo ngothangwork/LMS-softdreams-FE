@@ -24,6 +24,10 @@ export class BookCopyService {
     return this.http.get<ApiResponse<BookCopyListResponse[]>>(`${this.API_URL}/book/${id}`);
   }
 
+  getBookCopyByBookIdAndStatus(id: number): Observable<ApiResponse<BookCopyListResponse[]>> {
+    return this.http.get<ApiResponse<BookCopyListResponse[]>>(`${this.API_URL}/book/${id}/status`);
+  }
+
   createBookCopy(payload: BookCopyCreate): Observable<ApiResponse<BookCopyResponse[]>> {
     return this.http.post<ApiResponse<BookCopyResponse[]>>(this.API_URL, payload);
   }

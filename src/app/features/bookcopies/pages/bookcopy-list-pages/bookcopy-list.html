@@ -1,0 +1,22 @@
+<div class="bookcopy-page">
+  <h2>Quản lý bản sao sách</h2>
+
+  <button class="create-btn" (click)="openCreateDialog()">+ Thêm bản sao</button>
+
+  <div *ngIf="loading">Đang tải dữ liệu...</div>
+  <div *ngIf="!loading && bookCopies.length === 0">Không có bản sao nào!</div>
+
+  <div *ngIf="!loading && bookCopies.length > 0" class="bookcopies">
+    <div *ngFor="let bc of bookCopies" class="bookcopy-item">
+      <div>
+        <p><b>Mã vạch:</b> {{ bc.barcode }}</p>
+        <p><b>Tiêu đề:</b> {{ bc.title }}</p>
+        <p><b>Trạng thái:</b> {{ bc.status }}</p>
+      </div>
+      <div class="actions">
+        <button (click)="openUpdateDialog(bc.id)">Cập nhật</button>
+        <button (click)="onDelete(bc.id)">Xóa</button>
+      </div>
+    </div>
+  </div>
+</div>

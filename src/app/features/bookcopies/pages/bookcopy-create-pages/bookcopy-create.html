@@ -1,0 +1,29 @@
+<div class="modal-overlay">
+  <div class="modal-content">
+    <h2>Thêm bản sao sách</h2>
+    <form [formGroup]="bookCopyForm" (ngSubmit)="onSubmit()" class="bookcopy-form">
+      <div class="form-group">
+        <label for="barcode">Barcode</label>
+        <input id="barcode" formControlName="barcode" type="text"/>
+        <div class="error" *ngIf="barcode?.touched && barcode?.invalid">
+          <small *ngIf="barcode?.errors?.['required']">Barcode là bắt buộc</small>
+          <small *ngIf="barcode?.errors?.['minlength']">Barcode tối thiểu 4 ký tự</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="status">Trạng thái</label>
+        <select id="status" formControlName="status">
+          <option value="AVAILABLE">AVAILABLE</option>
+          <option value="BORROWED">BORROWED</option>
+          <option value="LOST">LOST</option>
+        </select>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn btn-primary" [disabled]="bookCopyForm.invalid">Thêm</button>
+        <button type="button" class="btn btn-secondary" (click)="onClose()">Đóng</button>
+      </div>
+    </form>
+  </div>
+</div>

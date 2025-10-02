@@ -1,7 +1,7 @@
 <div class="header-book-detail">
   <button (click)="goBack()" class="btn btn-primary">Trở về</button>
   <td class="actions">
-    <button (click)="openUpdateDialog()" class="btn btn-warning">Edit</button>
+    <button class="create-btn btn" (click)="openCreateDialog(bookId)">+ Thêm bản sao</button>
   </td>
 </div>
 
@@ -65,12 +65,16 @@
           <tr>
             <th>Mã vạch</th>
             <th>Trạng thái</th>
+            <th></th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let bookCopy of bookCopies">
             <td>{{ bookCopy.barcode }}</td>
             <td>{{ bookCopy.status || 'Không rõ' }}</td>
+            <td>
+              <button class="btn-danger" (click)="onDelete(bookCopy.id)">Xóa</button>
+            </td>
           </tr>
           </tbody>
         </table>

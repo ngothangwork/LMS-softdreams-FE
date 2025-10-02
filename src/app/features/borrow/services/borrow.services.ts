@@ -37,4 +37,24 @@ export class BorrowService {
     return this.http.put<ApiResponse<BorrowResponse>>(`${this.API_URL}/${id}`, borrow);
   }
 
+  updateBorrowStatus(id: number, status: string): Observable<ApiResponse<BorrowResponse>> {
+    return this.http.put<ApiResponse<BorrowResponse>>(
+      `${this.API_URL}/${id}/status`,
+      { status }
+    );
+  }
+
+  exportPdf(): Observable<Blob> {
+    return this.http.get(`${this.API_URL}/export`, {
+      responseType: 'blob',
+    });
+  }
+
+  exportExcel(): Observable<Blob> {
+    return this.http.get(`${this.API_URL}/export-excel`, {
+      responseType: 'blob',
+    });
+  }
+
+
 }
