@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BorrowCreateRequest, BorrowResponse, BorrowUpdateRequest} from '../models/borrow.models';
+import {BorrowCreateRequest, BorrowResponse, BorrowSearch, BorrowUpdateRequest} from '../models/borrow.models';
 import {Observable} from 'rxjs';
 import {ApiResponse} from '../../../core/models/api-response';
 
@@ -31,6 +31,18 @@ export class BorrowService {
     return this.http.get(`${this.API_URL}/export?format=${format}`, {
       responseType: 'blob'
     });
+  }
+
+  searchBorrows(
+    payload: BorrowSearch,
+    page: number = 0,
+    size: number = 5,
+    sort: string = 'id,asc'
+  ): Observable<ApiResponse<any>> {
+    return this.http.post<ApiResponse<any>>(
+      `${this.API_URL}/search?page=${page}&size=${size}&sort=${sort}`,
+      payload
+    );
   }
 
   updateBorrow(id: number, borrow: BorrowUpdateRequest): Observable<ApiResponse<BorrowResponse>> {

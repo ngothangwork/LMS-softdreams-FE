@@ -7,7 +7,7 @@
 .search-bar {
   display: flex;
   gap: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
 }
 
 .search-bar input {
@@ -115,6 +115,7 @@
   border-radius: 10px;
   background-color: #f9f9f9;
   border: 1px solid #e0e0e0;
+  margin-bottom: 8px;
 }
 
 .search-bar select,

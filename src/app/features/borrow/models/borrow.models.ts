@@ -26,3 +26,7 @@ export interface  BorrowUpdateRequest {
 export interface  BorrowUpdateStatusRequest {
   status: string;
 }
+
+export interface BorrowSearch {
+  keyword: string;
+}

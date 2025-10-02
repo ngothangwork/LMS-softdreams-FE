@@ -1,4 +1,34 @@
 <div class="borrow-list">
+
+  <div class="search-bar">
+    <input
+      type="text"
+      placeholder="Nhập từ khóa..."
+      [(ngModel)]="searchKeyword"
+      (keydown.enter)="onSearchClick()"
+    />
+    <button (click)="onSearchClick()">Tìm kiếm</button>
+
+  </div>
+
+  <div class="sort-bar">
+    <label class="inline-label">Sắp xếp</label>
+    <select [(ngModel)]="sortField" (change)="onSortChange()">
+      <option value="name">Tên</option>
+      <option value="borrowDate">Ngày mượn</option>
+    </select>
+
+    <select [(ngModel)]="sortDir" (change)="onSortChange()">
+      <option value="asc">Tăng dần</option>
+      <option value="desc">Giảm dần</option>
+    </select>
+
+    <label class="inline-label">Số / trang</label>
+    <select [(ngModel)]="size" (change)="onSizeChange()">
+      <option *ngFor="let s of pageSizeOptions" [value]="s">{{ s }}</option>
+    </select>
+  </div>
+
   <div class="actions">
     <div class="export-file">
       <div class="export-button">
@@ -15,6 +45,8 @@
       </div>
     </div>
   </div>
+
+
 
   <table *ngIf="!loading && borrows.length > 0" class="borrow-table">
     <thead>
@@ -74,4 +106,15 @@
     </tr>
     </tbody>
   </table>
+
+  <div class="pagination" *ngIf="!loading && (totalPages > 0 || borrows.length > 0)">
+    <button (click)="goToFirst()" [disabled]="page === 0">Đầu</button>
+    <button (click)="goToPage(page - 1)" [disabled]="page === 0">Trước</button>
+
+    <span>Trang {{ page + 1 }} / {{ totalPages || 1 }}</span>
+    <span class="muted">({{ totalElements }} kết quả)</span>
+
+    <button (click)="goToPage(page + 1)" [disabled]="totalPages ? (page >= totalPages - 1) : (borrows.length < size)">Sau</button>
+    <button (click)="goToLast()" [disabled]="totalPages ? (page >= totalPages - 1) : true">Cuối</button>
+  </div>
 </div>
