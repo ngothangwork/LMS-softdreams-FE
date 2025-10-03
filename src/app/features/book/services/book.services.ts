@@ -7,9 +7,10 @@ import {
   BookUpdate,
   BookSearch,
   BookDetailResponse,
-  BookUpdateResponse
+  BookUpdateResponse, BookDetailResponseDTO
 } from '../models/book.model';
 import {ApiResponse, Page} from '../../../core/models/api-response';
+import {BorrowSearch} from '../../borrow/models/borrow.models';
 
 
 @Injectable({
@@ -32,8 +33,8 @@ export class BookService {
     );
   }
 
-  getBook(id: number): Observable<ApiResponse<BookDetailResponse>> {
-    return this.http.get<ApiResponse<BookDetailResponse>>(`${this.API_URL}/${id}`);
+  getBook(id: number): Observable<ApiResponse<BookDetailResponseDTO>> {
+    return this.http.get<ApiResponse<BookDetailResponseDTO>>(`${this.API_URL}/${id}`);
   }
 
   getBookUpdate(id: number): Observable<ApiResponse<BookUpdateResponse>> {
@@ -54,4 +55,27 @@ export class BookService {
     return this.http.patch<ApiResponse<BookResponse>>(`${this.API_URL}/${id}`, book);
   }
 
+  exportPdf(
+    payload: BookSearch,
+    page: number = 0,
+    size: number = 5,
+    sort: string = 'name,asc'
+  ): Observable<Blob> {
+    return this.http.post(`${this.API_URL}/report/export?page=${page}&size=${size}&sort=${sort}`,
+      payload,
+      { responseType: 'blob' }
+    );
+  }
+
+  exportExcel(
+    payload: BookSearch,
+    page: number = 0,
+    size: number = 5,
+    sort: string = 'name,asc'
+  ): Observable<Blob> {
+    return this.http.post(`${this.API_URL}/report/export-excel?page=${page}&size=${size}&sort=${sort}`,
+      payload,
+      { responseType: 'blob' }
+    );
+  }
 }

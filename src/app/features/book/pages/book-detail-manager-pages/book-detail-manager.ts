@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BookDetailResponse} from '../../models/book.model';
+import {BookDetailResponse, BookDetailResponseDTO} from '../../models/book.model';
 import {BookService} from '../../services/book.services';
 import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
@@ -25,7 +25,7 @@ import {ConfirmDialogComponent} from '../../../../shared/ui/confirm-dialog.compo
 
 export class BookDetailManagerComponent implements OnInit{
 
-  bookDetail: BookDetailResponse | null = null;
+  bookDetail: BookDetailResponseDTO | null = null;
   loading = true;
   bookId!: number;
   bookCopies: BookCopyListResponse[] = [];

@@ -9,6 +9,7 @@
   import {FormsModule, ReactiveFormsModule} from '@angular/forms';
   import {ToastrService} from 'ngx-toastr';
   import {ConfirmDialogComponent} from '../../../../shared/ui/confirm-dialog.component';
+  import {BorrowSearch} from '../../../borrow/models/borrow.models';
 
 
   @Component({
@@ -42,7 +43,7 @@
       private dialog: MatDialog,
       private route: ActivatedRoute,
       private router: Router,
-      private toastr: ToastrService
+      private toast: ToastrService
     ) {}
 
     ngOnInit() {
@@ -153,10 +154,11 @@
           this.bookService.deleteBook(id).subscribe({
             next: () => {
               this.loadBooks();
-              this.toastr.success('Xóa sách thành công');
+              this.toast.success('Xóa sách thành công');
             },
-            error: () => {
-              this.toastr.error('Xóa sách thất bại');
+            error: (err) => {
+              console.error('Lỗi khi xóa sách:', err);
+              this.toast.error(err?.error?.message || 'Xóa sách thất bại');
             }
           });
         }
@@ -190,4 +192,31 @@
         this.goToPage(this.totalPages - 1);
       }
     }
+
+    exportPdf() {
+      const payload: BookSearch = {
+        type: this.type || 'name',
+        keyword: this.searchKeyword || ''
+      };
+      console.log(payload);
+
+      this.loading = true;
+      this.error = null;
+      this.bookService.exportPdf(payload, this.page, this.size, this.sort).subscribe({
+        next: (data: Blob) => {
+          const blob = new Blob([data], { type: 'application/pdf' });
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'book.pdf';
+          a.click();
+          window.URL.revokeObjectURL(url);
+          this.searchBooks();
+        },
+        error: () => this.toast.error('Không thể xuất PDF'),
+
+      });
+    }
+
+
   }

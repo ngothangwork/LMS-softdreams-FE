@@ -7,8 +7,8 @@
         <label>Tên</label>
         <input formControlName="name" type="text" />
         <div class="error" *ngIf="bookForm.get('name')?.touched && bookForm.get('name')?.invalid">
-          <small *ngIf="bookForm.get('name')?.errors?.['required']">Tên sách là bắt buộc</small>
-          <small *ngIf="bookForm.get('name')?.errors?.['minlength']">Tên phải có ít nhất 3 ký tự</small>
+          <div *ngIf="bookForm.get('name')?.errors?.['required']">Tên sách là bắt buộc</div>
+          <div *ngIf="bookForm.get('name')?.errors?.['minlength']">Tên phải có ít nhất 3 ký tự</div>
         </div>
       </div>
 
@@ -25,8 +25,8 @@
         <label>ISBN</label>
         <input formControlName="isbn" type="text" />
         <div class="error" *ngIf="bookForm.get('isbn')?.touched && bookForm.get('isbn')?.invalid">
-          <small *ngIf="bookForm.get('isbn')?.errors?.['required']">ISBN là bắt buộc</small>
-          <small *ngIf="bookForm.get('isbn')?.errors?.['pattern']">ISBN chỉ được chứa số và dấu -</small>
+          <div *ngIf="bookForm.get('isbn')?.errors?.['required']">ISBN là bắt buộc</div>
+          <div *ngIf="bookForm.get('isbn')?.errors?.['pattern']">ISBN chỉ được chứa số và dấu -</div>
         </div>
       </div>
 
@@ -37,7 +37,7 @@
           <option *ngFor="let p of publishers" [value]="p.id">{{ p.name }}</option>
         </select>
         <div class="error" *ngIf="bookForm.get('publisherId')?.touched && bookForm.get('publisherId')?.invalid">
-          <small>Vui lòng chọn nhà xuất bản</small>
+          <div>Vui lòng chọn nhà xuất bản</div>
         </div>
       </div>
 
@@ -51,7 +51,7 @@
           placeholder="Chọn tác giả">
         </ng-multiselect-dropdown>
         <div class="error" *ngIf="bookForm.get('authorIds')?.touched && bookForm.get('authorIds')?.invalid">
-          <small>Vui lòng chọn ít nhất một tác giả</small>
+          <div>Vui lòng chọn ít nhất một tác giả</div>
         </div>
       </div>
 

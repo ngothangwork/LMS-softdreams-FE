@@ -4,6 +4,8 @@
     <button (click)="openCreateDialog()" class="btn btn-primary">+ Thêm sách</button>
   </div>
 
+
+
   <div *ngIf="loading" class="loading">Đang tải...</div>
   <div *ngIf="error" class="error">{{ error }}</div>
 
@@ -42,6 +44,20 @@
     <select [(ngModel)]="size" (change)="onSizeChange()">
       <option *ngFor="let s of pageSizeOptions" [value]="s">{{ s }}</option>
     </select>
+  </div>
+
+  <div class="actions">
+    <div class="export-file">
+      <div class="export-button">
+
+      </div>
+      <div class="export-button">
+        <button (click)="exportPdf()">
+          <i class="fas fa-file-pdf"></i>
+          Export PDF
+        </button>
+      </div>
+    </div>
   </div>
 
   <table *ngIf="!loading && books.length > 0" class="book-table">

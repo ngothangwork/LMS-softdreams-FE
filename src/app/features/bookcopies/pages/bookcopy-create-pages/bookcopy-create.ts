@@ -25,7 +25,6 @@ export class BookCopyCreateComponent {
   ) {
     this.bookCopyForm = this.fb.group({
       barcode: ['', [Validators.required, Validators.minLength(4)]],
-      // bookId lấy từ data truyền vào => không nhập từ form
       bookId: [data.bookId, Validators.required],
       status: ['AVAILABLE', Validators.required]
     });
@@ -48,7 +47,7 @@ export class BookCopyCreateComponent {
       },
       error: (err) => {
         console.error('Thêm bản sao thất bại', err);
-        this.toastr.error('Thêm bản sao sách thất bại', 'Error');
+        this.toastr.error(err.error.message, 'Error');
       }
     });
   }

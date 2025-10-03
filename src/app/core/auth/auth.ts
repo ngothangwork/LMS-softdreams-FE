@@ -42,11 +42,27 @@ export class AuthService {
   }
 
   logout(): void {
+    const refreshToken = localStorage.getItem('refresh_token');
+    if (refreshToken) {
+      this.http.post(`${this.API_URL}/logout`, { refreshToken }).subscribe({
+        next: () => {
+          this.clearLocalStorageAndRedirect();
+        },
+        error: () => {
+          this.clearLocalStorageAndRedirect();
+        }
+      });
+    } else {
+      this.clearLocalStorageAndRedirect();
+    }
+  }
+  private clearLocalStorageAndRedirect(): void {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.userKey);
     localStorage.removeItem('refresh_token');
     this.router.navigate(['/login']);
   }
+
 
   refreshToken(): Observable<ApiResponse<UserLoginResponse>> {
     const refreshToken = localStorage.getItem('refresh_token');
@@ -82,8 +98,6 @@ export class AuthService {
   hasAnyRole(roles: string[]): boolean {
     return roles.includes(this.getRole()!);
   }
-
-
 
   isLoggedIn(): boolean {
     return !!this.getToken();

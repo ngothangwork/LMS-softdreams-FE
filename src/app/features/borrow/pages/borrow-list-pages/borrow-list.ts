@@ -175,7 +175,13 @@ export class BorrowListComponent implements OnInit {
 
 
   exportPdf() {
-    this.borrowService.exportPdf().subscribe({
+    const payload: BorrowSearch = {
+      keyword: this.searchKeyword || ''
+    }
+
+    this.loading = true;
+    this.error = null;
+    this.borrowService.exportPdf(payload, this.page, this.size, this.sort).subscribe({
       next: (data: Blob) => {
         const blob = new Blob([data], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob);
@@ -184,13 +190,21 @@ export class BorrowListComponent implements OnInit {
         a.download = 'borrows.pdf';
         a.click();
         window.URL.revokeObjectURL(url);
+        this.loading = false;
       },
       error: () => this.toast.error('Không thể xuất PDF'),
+
     });
   }
 
   exportExcel() {
-    this.borrowService.exportExcel().subscribe({
+    const payload: BorrowSearch = {
+      keyword: this.searchKeyword || ''
+    }
+
+    this.loading = true;
+    this.error = null;
+    this.borrowService.exportExcel(payload, this.page, this.size, this.sort).subscribe({
       next: (data: Blob) => {
         const blob = new Blob([data], {
           type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
@@ -201,6 +215,7 @@ export class BorrowListComponent implements OnInit {
         a.download = 'borrows.xlsx';
         a.click();
         window.URL.revokeObjectURL(url);
+        this.loading = false;
       },
       error: () => this.toast.error('Không thể xuất Excel'),
     });

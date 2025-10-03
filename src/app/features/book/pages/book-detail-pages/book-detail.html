@@ -19,24 +19,20 @@
 
     <div class="book-detail-content">
       <div class="book-detail-label">Nhà xuất bản:</div>
-      <div class="book-detail-value">{{ bookDetail.publisher.name }}</div>
+      <div class="book-detail-value">{{ bookDetail.publisherName }}</div>
     </div>
 
     <div class="book-detail-content">
       <div class="book-detail-label">Tác giả:</div>
       <div class="book-detail-value">
-      <span *ngFor="let author of bookDetail.authors; let last = last">
-        {{ author.name }}{{ !last ? ', ' : '' }}
-      </span>
+        {{bookDetail.authors}}
       </div>
     </div>
 
     <div class="book-detail-content">
       <div class="book-detail-label">Thể loại:</div>
       <div class="book-detail-value">
-      <span *ngFor="let cat of bookDetail.categories; let last = last">
-        {{ cat.name }}{{ !last ? ', ' : '' }}
-      </span>
+      {{bookDetail.categories}}
       </div>
     </div>
 

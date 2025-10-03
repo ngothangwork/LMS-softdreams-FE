@@ -52,20 +52,32 @@ export class BorrowService {
   updateBorrowStatus(id: number, status: string): Observable<ApiResponse<BorrowResponse>> {
     return this.http.put<ApiResponse<BorrowResponse>>(
       `${this.API_URL}/${id}/status`,
-      { status }
+      {status}
     );
   }
 
-  exportPdf(): Observable<Blob> {
-    return this.http.get(`${this.API_URL}/export`, {
-      responseType: 'blob',
-    });
+  exportPdf(
+    payload: BorrowSearch,
+    page: number = 0,
+    size: number = 5,
+    sort: string = 'id,asc'
+  ): Observable<Blob> {
+    return this.http.post(`${this.API_URL}/export?page=${page}&size=${size}&sort=${sort}`,
+      payload,
+      { responseType: 'blob' }
+    );
   }
 
-  exportExcel(): Observable<Blob> {
-    return this.http.get(`${this.API_URL}/export-excel`, {
-      responseType: 'blob',
-    });
+  exportExcel(
+    payload: BorrowSearch,
+    page: number = 0,
+    size: number = 5,
+    sort: string = 'id,asc'
+  ): Observable<Blob> {
+    return this.http.post(`${this.API_URL}/export-excel?page=${page}&size=${size}&sort=${sort}`,
+      payload,
+      { responseType: 'blob' }
+    );
   }
 
 

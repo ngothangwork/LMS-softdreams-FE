@@ -3,9 +3,9 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {CommonModule} from '@angular/common';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 
-import {AuthorResponse} from '../../../author/models/author.model';
-import {PublisherResponse} from '../../../publisher/models/publisher.model';
-import {CategoryResponse} from '../../../category/models/category.model';
+import {AuthorUpdateResponse} from '../../../author/models/author.model';
+import {PublisherResponse, PublisherUpdateResponse} from '../../../publisher/models/publisher.model';
+import {CategoryResponse, CategoryUpdateResponse} from '../../../category/models/category.model';
 import {BookService} from '../../services/book.services';
 import {AuthorService} from '../../../author/services/author.service';
 import {CategoryService} from '../../../category/services/category.service';
@@ -27,9 +27,9 @@ import {MatDialogRef} from '@angular/material/dialog';
 })
 export class BookCreateComponent implements OnInit {
   bookForm!: FormGroup;
-  authors: AuthorResponse[] = [];
-  categories: CategoryResponse[] = [];
-  publishers: PublisherResponse[] = [];
+  authors: AuthorUpdateResponse[] = [];
+  categories: CategoryUpdateResponse[] = [];
+  publishers: PublisherUpdateResponse[] = [];
   selectedFile?: File;
 
   constructor(
@@ -92,15 +92,15 @@ export class BookCreateComponent implements OnInit {
       categoryIds: [[], Validators.required],
     });
 
-    this.authorService.getAuthors().subscribe(res => {
+    this.authorService.getAuthorUpdates().subscribe(res => {
       this.authors = res.result ?? [];
     });
 
-    this.categoryService.getCategory().subscribe(res => {
+    this.categoryService.getCategoryUpdate().subscribe(res => {
       this.categories = res.result ?? [];
     });
 
-    this.publisherService.getPublishers().subscribe(res => {
+    this.publisherService.getPublisherUpdate().subscribe(res => {
       this.publishers = res.result ?? [];
     });
   }

@@ -1,6 +1,6 @@
 import {CommonModule} from '@angular/common';
 import {Component, OnInit} from '@angular/core';
-import {BookDetailResponse} from '../../models/book.model';
+import {BookDetailResponse, BookDetailResponseDTO} from '../../models/book.model';
 import {BookService} from '../../services/book.services';
 import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -17,7 +17,7 @@ import {MatDialog} from '@angular/material/dialog';
 })
 
 export class BookDetailComponent implements OnInit {
-  bookDetail: BookDetailResponse | null = null;
+  bookDetail: BookDetailResponseDTO | null = null;
   loading = true;
   bookId!: number;
 
